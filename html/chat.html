@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <title>Chat - Jelsa Jordbær</title>
+    <link rel="icon" type="image/png" href="../favicon2.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Jelsa Jordbær</h1>
+        <p>"Dei får bein å gå på"</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Hjem</a></li>
+            <li><a href="omoss.html">Om oss</a></li>
+            <li><a href="produkt.html">Produkter</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="chat.html">Chat</a></li>
+        </ul>
+    </nav>
+    <div class="chat-container">
+        <h1>Her er chatten vår!</h1>
+        <p>Du kan bruke chatten til å prate med folk, slik kan lojale kunder prate sammen og snakke om hvor god vår kundeservice er. <br>Legg gjerne inn en melding for å teste chatten!</p>
+        <form id="regMelding">
+            <input type="text" id="inpNavn" placeholder="Navn">
+            <input type="text" id="inpTekst" placeholder="Melding">
+            <button type="submit">Legg inn melding</button>
+        </form>
+        <ol id="visMeldinger"></ol>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
+        import { getDatabase, ref, push, set, onValue, child, query, orderByKey, limitToLast } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLgY7iKk7Hgh9xnR2LUmvZDXWSAQeQXXQ",
+            authDomain: "chat-for-it-74bbd.firebaseapp.com",
+            databaseURL: "https://chat-for-it-74bbd-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "chat-for-it-74bbd",
+            storageBucket: "chat-for-it-74bbd.appspot.com",
+            messagingSenderId: "607216439899",
+            appId: "1:607216439899:web:6223dd703cdbddbd29257e",
+            measurementId: "G-6V299QVDSL"
+        };
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+
+        var regMelding = document.getElementById("regMelding");
+        var inpNavn = document.getElementById("inpNavn");
+        var inpTekst = document.getElementById("inpTekst");
+        var visMeldinger = document.getElementById("visMeldinger");
+        let lastNode = null;
+
+        regMelding.onsubmit = function (evt) {
+            evt.preventDefault();
+            const messageRef = ref(database, 'meldinger');
+            const newMessageRef = push(messageRef);
+            set(newMessageRef, {
+                navn: inpNavn.value,
+                tekst: inpTekst.value
+            });
+            inpNavn.value = '';
+            inpTekst.value = '';
+        }
+
+        const messagesRef = ref(database, 'meldinger');
+        onValue(messagesRef, (snapshot) => {
+            visMeldinger.innerHTML = '';
+            snapshot.forEach((childSnapshot) => {
+                let nyDiv = document.createElement('li');
+                var melding = childSnapshot.val();
+                nyDiv.innerHTML = `${melding.navn}: 
+                <i>${melding.tekst}</i>`;
+            visMeldinger.appendChild(nyDiv);
+        });
+    });
+</script>
+</body>
+</html>

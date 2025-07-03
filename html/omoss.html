@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Om oss - Jelsa Jordbær</title>
+    <link rel="icon" type="image/png" href="../favicon2.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Jelsa Jordbær</h1>
+        <p>"Dei får bein å gå på"</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Hjem</a></li>
+            <li><a href="omoss.html">Om oss</a></li>
+            <li><a href="produkt.html">Produkter</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="chat.html">Chat</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="slideshow-container">
+            <div class="slide">
+                <img src="../media/ovblikk1.png" alt="Øyeblikk 1">
+            </div>
+            <div class="slide">
+                <img src="../media/ovblikk2.png" alt="Øyeblikk 2">
+            </div>
+            <div class="slide">
+                <img src="../media/ovblikk3.png" alt="Øyeblikk 3">
+            </div>
+        </div>
+
+        <section class="info-section">
+            <h2>Innovativ dyrking med tak over hodet</h2>
+            <p>
+                Jelsa Jordbær vokser inne under tak – et konsept som gir optimal kontroll over vekstforholdene og beskytter bærene mot vær og vind.
+                Dette er mer enn bare jordbær – det er fremtidsretta matproduksjon. Ved å kombinere tradisjon med moderne teknologi dyrker vi søte, 
+                saftige jordbær gjennom hele sesongen, uavhengig av regn og storm. Resultatet? Renere, jevnere og mer holdbare bær – med kort vei fra åker til kunde.
+            </p>
+        </section>
+    </main>
+    <script>
+        let slideIndex = 0;
+        const slides = document.getElementsByClassName("slide");
+
+        function showSlides() {
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000); // Bytt bilde hvert 3. sekund
+        }
+
+        showSlides();
+    </script>
+</body>
+</html>

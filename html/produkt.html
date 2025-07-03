@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bildegalleri - Jelsa Jordbær</title>
+  <link rel="icon" type="image/png" href="../favicon2.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+      <h1>Jelsa Jordbær</h1>
+      <p>"Dei får bein å gå på"</p>
+  </header>
+  <nav>
+      <ul>
+        <li><a href="../index.html">Hjem</a></li>
+        <li><a href="omoss.html">Om oss</a></li>
+        <li><a href="produkt.html">Produkter</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="chat.html">Chat</a></li>
+      </ul>
+  </nav>
+  <div class="image-container">
+    <h2>Her kan du se på produktene våre!</h2>
+    <img id="gallery-image" src="#" alt="">
+    <div id="description"></div>
+    <div>
+      <button id="prev-btn">Forrige</button>
+      <button id="next-btn">Neste</button>
+    </div>
+  </div>
+  <script>
+    const images = [
+      '../media/moreller.png',
+      '../media/malvina.png',
+      '../media/bringebeer.png',
+      '../media/sonsationv2.png',
+    ];
+
+    const descriptions = [
+      'Dette er våre deilige moreller, fulle av smak og friskhet.',
+      'Her ser du våre saftige Malvina-jordbær, perfekte som spisebær.',
+      'Opplev våre søte og smakfulle bringebær, en sommerfavoritt!',
+      'Sonsation jordbær, kjent for sin unike sødme og tekstur.',
+    ];
+
+    let currentIndex = 0;
+    const galleryImage = document.getElementById('gallery-image');
+    const descriptionText = document.getElementById('description');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    function updateImage() {
+      galleryImage.src = images[currentIndex];
+      galleryImage.alt = `Bilde ${currentIndex + 1}`;
+      descriptionText.textContent = descriptions[currentIndex];
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex--;
+      if (currentIndex < 0) {
+        currentIndex = images.length - 1;
+      }
+      updateImage();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex++;
+      if (currentIndex >= images.length) {
+        currentIndex = 0;
+      }
+      updateImage();
+    });
+
+    updateImage();
+  </script>
+</body>
+</html>
