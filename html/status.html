@@ -137,10 +137,11 @@
       </div>
     </div>
   <script>
+    const time = String(Date.now());
     const gistRawUrl = 'https://gist.githubusercontent.com/JelsaJordberr/26826facd1e67fbd0c421936f405df2c/raw/90c897085c66a2390e576ec4879475554671206e/status.json';
     const gistId = '26826facd1e67fbd0c421936f405df2c';
     const gistFilename = 'status.json';
-    const gistApiUrl = `https://api.github.com/gists/${gistId}`;
+    const gistApiUrl = `https://api.github.com/gists/${gistId}`+ `?time=${time}`;
 
     const statusMapping = {
       "åpent": "green",
@@ -166,7 +167,8 @@
     }
 
     function hentStatus() {
-      fetch(gistRawUrl)
+      const time = String(Date.now());
+      fetch(gistRawUrl + `?time=${time}`)
         .then(response => response.json())
         .then(data => {
           oppdaterStatus('status-haugesund', data.haugesund);
