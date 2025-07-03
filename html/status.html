@@ -86,6 +86,16 @@
       margin-top: 1rem;
       text-align: center;
     }
+    
+    .location-selector {
+      margin-bottom: 1rem;
+    }
+    
+    .location-selector label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -125,26 +135,28 @@
 
     <div id="admin-panel" class="hidden">
       <h3>Oppdater status</h3>
-      <input type="text" id="token" placeholder="Passord">
-      <label for="haugesund">Haugesund</label>
-      <select id="haugesund">
-        <option>åpent</option>
-        <option>lite bær igjen</option>
-        <option>stengt</option>
-      </select>
-      <label for="akra">Åkra</label>
-      <select id="akra">
-        <option>åpent</option>
-        <option>lite bær igjen</option>
-        <option>stengt</option>
-      </select>
-      <label for="sand">Sand</label>
-      <select id="sand">
-        <option>åpent</option>
-        <option>lite bær igjen</option>
-        <option>stengt</option>
-      </select>
-      <button class="button" onclick="lagreStatus()">Lagre status</button>
+      <input type="text" id="token" placeholder="GitHub Token">
+      
+      <div class="location-selector">
+        <label for="location">Velg ditt utsalgssted:</label>
+        <select id="location" onchange="updateLocationFields()">
+          <option value="">Velg sted</option>
+          <option value="haugesund">Haugesund</option>
+          <option value="akra">Åkra</option>
+          <option value="sand">Sand</option>
+        </select>
+      </div>
+      
+      <div id="status-fields" style="display:none;">
+        <label for="status">Status:</label>
+        <select id="status">
+          <option value="åpent">Åpent</option>
+          <option value="lite bær igjen">Lite bær igjen</option>
+          <option value="stengt">Stengt</option>
+        </select>
+        <button class="button" onclick="lagreStatus()" style="margin-top: 1rem;">Lagre status</button>
+      </div>
+      
       <button class="button" onclick="loggUt()" style="background-color:#dc3545; margin-top: 10px;">Logg ut</button>
     </div>
   </div>
@@ -166,6 +178,13 @@
       "lite bær igjen": "yellow",
       "stengt": "red"
     };
+    
+    // Store current status data
+    let currentStatusData = {
+      haugesund: "",
+      akra: "",
+      sand: ""
+    };
 
     function oppdaterStatus(id, status) {
       const indicatorEl = document.getElementById(id);
@@ -182,6 +201,19 @@
       const adminPanel = document.getElementById('admin-panel');
       adminPanel.classList.toggle('hidden');
     }
+    
+    function updateLocationFields() {
+      const location = document.getElementById('location').value;
+      const statusFields = document.getElementById('status-fields');
+      
+      if (location) {
+        statusFields.style.display = 'block';
+        // Set current status for selected location
+        document.getElementById('status').value = currentStatusData[location] || 'åpent';
+      } else {
+        statusFields.style.display = 'none';
+      }
+    }
 
     function hentStatus() {
       // Show loading state
@@ -197,16 +229,16 @@
           return response.json();
         })
         .then(data => {
+          // Store current data
+          currentStatusData = {
+            haugesund: data.haugesund,
+            akra: data.akra,
+            sand: data.sand
+          };
+          
           oppdaterStatus('status-haugesund', data.haugesund);
           oppdaterStatus('status-akra', data.akra);
           oppdaterStatus('status-sand', data.sand);
-          
-          // Update form values if admin panel is open
-          if (!document.getElementById('admin-panel').classList.contains('hidden')) {
-            document.getElementById('haugesund').value = data.haugesund;
-            document.getElementById('akra').value = data.akra;
-            document.getElementById('sand').value = data.sand;
-          }
           
           // Update last updated time
           document.getElementById('last-updated').textContent = `Sist oppdatert: ${new Date().toLocaleTimeString()}`;
@@ -247,13 +279,21 @@
         alert("Du må fylle inn et GitHub-token.");
         return;
       }
+      
+      const location = document.getElementById('location').value;
+      if (!location) {
+        alert("Du må velge et utsalgssted.");
+        return;
+      }
+      
+      const newStatus = document.getElementById('status').value;
 
       lagreTokenHvisNytt(token);
 
-      const data = {
-        haugesund: document.getElementById('haugesund').value,
-        akra: document.getElementById('akra').value,
-        sand: document.getElementById('sand').value
+      // Create new data object with only the updated location
+      const updatedData = {
+        ...currentStatusData,
+        [location]: newStatus
       };
 
       fetch(gistApiUrl, {
@@ -265,7 +305,7 @@
         body: JSON.stringify({
           files: {
             [gistFilename]: {
-              content: JSON.stringify(data, null, 2)
+              content: JSON.stringify(updatedData, null, 2)
             }
           }
         })
