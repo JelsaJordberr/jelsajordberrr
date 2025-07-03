@@ -97,16 +97,17 @@
       <h2>Status for utsalgssteder</h2>
       <div class="location-status">
         <div id="status-haugesund" class="status-indicator"></div>
-        <span>Haugesund</span>
+        <span>Haugesund - </span><span id="status-text-haugesund" class="status-text"></span>
       </div>
       <div class="location-status">
         <div id="status-akra" class="status-indicator"></div>
-        <span>Åkra</span>
+        <span>Åkra - </span><span id="status-text-akra" class="status-text"></span>
       </div>
       <div class="location-status">
         <div id="status-sand" class="status-indicator"></div>
-        <span>Sand</span>
+        <span>Sand - </span><span id="status-text-sand" class="status-text"></span>
       </div>
+      
 
       <button class="button" onclick="toggleAdmin()">For jordbærselgere</button>
 
@@ -135,14 +136,8 @@
         <button class="button" onclick="loggUt()" style="background-color:#dc3545; margin-top: 10px;">Logg ut</button>
       </div>
     </div>
-
-  <div class="floating-indicator">
-    <div id="flytende-status" class="status-indicator"></div>
-    <span style="margin-left: 8px;">Haugesund</span>
-  </div>
-
   <script>
-    const gistRawUrl = 'https://gist.githubusercontent.com/JelsaJordberr/692833868f49f779fedffef843d5c195/raw/2466d64b09c0c2bd3da333362adac48c5042fda4/status.json';
+    const gistRawUrl = 'https://gist.githubusercontent.com/JelsaJordberr/692833868f49f779fedffef843d5c195/raw/180e07f7cd4e5ca85d3316ca3d4524896dd5ebac/status.json';
     const gistId = '692833868f49f779fedffef843d5c195';
     const gistFilename = 'status.json';
     const gistApiUrl = `https://api.github.com/gists/${gistId}`;
@@ -154,9 +149,16 @@
     };
 
     function oppdaterStatus(id, status) {
-      const el = document.getElementById(id);
-      el.className = "status-indicator " + (statusMapping[status.toLowerCase()] || 'red');
+        const indicatorEl = document.getElementById(id);
+        const textEl = document.getElementById("status-text-" + id.split("-")[1]);
+
+        indicatorEl.className = "status-indicator " + (statusMapping[status.toLowerCase()] || 'red');
+
+        if (textEl) {
+            textEl.textContent = status;
+        }
     }
+
 
     function toggleAdmin() {
       const adminPanel = document.getElementById('admin-panel');
@@ -237,10 +239,11 @@
         alert("Klarte ikke å oppdatere Gist.");
       });
     }
-
     // Init
     hentLokalToken();
     hentStatus();
+    setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
+
   </script>
 </body>
 </html>
