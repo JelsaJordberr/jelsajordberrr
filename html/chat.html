@@ -40,16 +40,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
         import { getDatabase, ref, push, set, onValue, child, query, orderByKey, limitToLast } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
-        const firebaseConfig = {
-            apiKey: "AIzaSyDLgY7iKk7Hgh9xnR2LUmvZDXWSAQeQXXQ",
-            authDomain: "chat-for-it-74bbd.firebaseapp.com",
-            databaseURL: "https://chat-for-it-74bbd-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "chat-for-it-74bbd",
-            storageBucket: "chat-for-it-74bbd.appspot.com",
-            messagingSenderId: "607216439899",
-            appId: "1:607216439899:web:6223dd703cdbddbd29257e",
-            measurementId: "G-6V299QVDSL"
-        };
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const database = getDatabase(app);
