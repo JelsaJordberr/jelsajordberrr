@@ -75,6 +75,17 @@
       max-width: 600px;
       margin: 2rem auto;
     }
+    
+    .loading {
+      opacity: 0.6;
+    }
+    
+    #last-updated {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 1rem;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -93,55 +104,62 @@
     </ul>
   </nav>
 
-    <div class="image-container">
-      <h2>Status for utsalgssteder</h2>
-      <div class="location-status">
-        <div id="status-haugesund" class="status-indicator"></div>
-        <span>Haugesund - </span><span id="status-text-haugesund" class="status-text"></span>
-      </div>
-      <div class="location-status">
-        <div id="status-akra" class="status-indicator"></div>
-        <span>Åkra - </span><span id="status-text-akra" class="status-text"></span>
-      </div>
-      <div class="location-status">
-        <div id="status-sand" class="status-indicator"></div>
-        <span>Sand - </span><span id="status-text-sand" class="status-text"></span>
-      </div>
-      
-
-      <button class="button" onclick="toggleAdmin()">For jordbærselgere</button>
-
-      <div id="admin-panel" class="hidden">
-        <h3>Oppdater status</h3>
-        <input type="text" id="token" placeholder="Passord">
-        <label for="haugesund">Haugesund</label>
-        <select id="haugesund">
-          <option>åpent</option>
-          <option>lite bær igjen</option>
-          <option>stengt</option>
-        </select>
-        <label for="akra">Åkra</label>
-        <select id="akra">
-          <option>åpent</option>
-          <option>lite bær igjen</option>
-          <option>stengt</option>
-        </select>
-        <label for="sand">Sand</label>
-        <select id="sand">
-          <option>åpent</option>
-          <option>lite bær igjen</option>
-          <option>stengt</option>
-        </select>
-        <button class="button" onclick="lagreStatus()">Lagre status</button>
-        <button class="button" onclick="loggUt()" style="background-color:#dc3545; margin-top: 10px;">Logg ut</button>
-      </div>
+  <div class="image-container">
+    <h2>Status for utsalgssteder</h2>
+    <div class="location-status">
+      <div id="status-haugesund" class="status-indicator"></div>
+      <span>Haugesund - </span><span id="status-text-haugesund" class="status-text"></span>
     </div>
+    <div class="location-status">
+      <div id="status-akra" class="status-indicator"></div>
+      <span>Åkra - </span><span id="status-text-akra" class="status-text"></span>
+    </div>
+    <div class="location-status">
+      <div id="status-sand" class="status-indicator"></div>
+      <span>Sand - </span><span id="status-text-sand" class="status-text"></span>
+    </div>
+    
+    <div id="last-updated"></div>
+
+    <button class="button" onclick="toggleAdmin()">For jordbærselgere</button>
+
+    <div id="admin-panel" class="hidden">
+      <h3>Oppdater status</h3>
+      <input type="text" id="token" placeholder="Passord">
+      <label for="haugesund">Haugesund</label>
+      <select id="haugesund">
+        <option>åpent</option>
+        <option>lite bær igjen</option>
+        <option>stengt</option>
+      </select>
+      <label for="akra">Åkra</label>
+      <select id="akra">
+        <option>åpent</option>
+        <option>lite bær igjen</option>
+        <option>stengt</option>
+      </select>
+      <label for="sand">Sand</label>
+      <select id="sand">
+        <option>åpent</option>
+        <option>lite bær igjen</option>
+        <option>stengt</option>
+      </select>
+      <button class="button" onclick="lagreStatus()">Lagre status</button>
+      <button class="button" onclick="loggUt()" style="background-color:#dc3545; margin-top: 10px;">Logg ut</button>
+    </div>
+  </div>
+
   <script>
-    const time = String(Date.now());
-    const gistRawUrl = 'https://gist.githubusercontent.com/JelsaJordberr/26826facd1e67fbd0c421936f405df2c/raw/90c897085c66a2390e576ec4879475554671206e/status.json';
+    // Cache busting solution
+    Object.defineProperty(window, 'CACHE_BUSTER', {
+      value: Date.now(),
+      writable: false
+    });
+
     const gistId = '26826facd1e67fbd0c421936f405df2c';
     const gistFilename = 'status.json';
-    const gistApiUrl = `https://api.github.com/gists/${gistId}`+ `?time=${time}`;
+    const gistRawUrl = `https://gist.githubusercontent.com/JelsaJordberr/${gistId}/raw/${gistFilename}?cb=${CACHE_BUSTER}`;
+    const gistApiUrl = `https://api.github.com/gists/${gistId}`;
 
     const statusMapping = {
       "åpent": "green",
@@ -150,16 +168,15 @@
     };
 
     function oppdaterStatus(id, status) {
-        const indicatorEl = document.getElementById(id);
-        const textEl = document.getElementById("status-text-" + id.split("-")[1]);
+      const indicatorEl = document.getElementById(id);
+      const textEl = document.getElementById("status-text-" + id.split("-")[1]);
 
-        indicatorEl.className = "status-indicator " + (statusMapping[status.toLowerCase()] || 'red');
+      indicatorEl.className = "status-indicator " + (statusMapping[status.toLowerCase()] || 'red');
 
-        if (textEl) {
-            textEl.textContent = status;
-        }
+      if (textEl) {
+        textEl.textContent = status;
+      }
     }
-
 
     function toggleAdmin() {
       const adminPanel = document.getElementById('admin-panel');
@@ -167,20 +184,42 @@
     }
 
     function hentStatus() {
-      const time = String(Date.now());
-      fetch(gistRawUrl + `?time=${time}`)
-        .then(response => response.json())
+      // Show loading state
+      document.querySelectorAll('.status-text').forEach(el => {
+        el.textContent = 'Henter status...';
+        el.classList.add('loading');
+      });
+      
+      const cacheBuster = `&t=${Date.now()}`;
+      fetch(`${gistRawUrl}${cacheBuster}`)
+        .then(response => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.json();
+        })
         .then(data => {
           oppdaterStatus('status-haugesund', data.haugesund);
           oppdaterStatus('status-akra', data.akra);
           oppdaterStatus('status-sand', data.sand);
-          oppdaterStatus('flytende-status', data.haugesund); // <- For indikator nederst
-
-          document.getElementById('haugesund').value = data.haugesund;
-          document.getElementById('akra').value = data.akra;
-          document.getElementById('sand').value = data.sand;
+          
+          // Update form values if admin panel is open
+          if (!document.getElementById('admin-panel').classList.contains('hidden')) {
+            document.getElementById('haugesund').value = data.haugesund;
+            document.getElementById('akra').value = data.akra;
+            document.getElementById('sand').value = data.sand;
+          }
+          
+          // Update last updated time
+          document.getElementById('last-updated').textContent = `Sist oppdatert: ${new Date().toLocaleTimeString()}`;
         })
-        .catch(err => console.error("Feil ved henting av status:", err));
+        .catch(err => {
+          console.error("Feil ved henting av status:", err);
+          document.querySelectorAll('.status-text').forEach(el => {
+            if (el.textContent === 'Henter status...') {
+              el.textContent = 'Kunne ikke hente status';
+              el.classList.remove('loading');
+            }
+          });
+        });
     }
 
     function hentLokalToken() {
@@ -238,14 +277,14 @@
       })
       .catch(err => {
         console.error(err);
-        alert("Klarte ikke å oppdatere Gist.");
+        alert("Klarte ikke å oppdatere Gist. Sjekk at token er gyldig.");
       });
     }
-    // Init
+
+    // Initialize
     hentLokalToken();
     hentStatus();
     setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
-
   </script>
 </body>
 </html>
