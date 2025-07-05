@@ -174,11 +174,8 @@
   </div>
 
   <script>
-    // Cache busting solution
-    Object.defineProperty(window, 'CACHE_BUSTER', {
-      value: Date.now(),
-      writable: false
-    });
+    
+    let updateTimer;
 
     const gistId = '26826facd1e67fbd0c421936f405df2c';
     const gistFilename = 'status.json';
@@ -290,12 +287,16 @@
         alert("Du må fylle inn et GitHub-token.");
         return;
       }
+      
 
       const location = document.getElementById('location').value;
       if (!location) {
         alert("Du må velge et utsalgssted.");
         return;
       }
+
+      // setter oppdatering på pause
+      clearInterval(updateTimer);
 
       const newStatus = document.getElementById('status').value;
 
@@ -325,17 +326,19 @@
           if (!res.ok) throw new Error("Feil ved oppdatering");
           alert("Status oppdatert!");
           hentStatus();
+          updateTimer = setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
         })
         .catch(err => {
           console.error(err);
           alert("Klarte ikke å oppdatere Gist. Sjekk at token er gyldig.");
+          updateTimer = setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
         });
     }
 
     // Initialize
     hentLokalToken();
     hentStatus();
-    setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
+    updateTimer = setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
   </script>
 </body>
 
