@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="no">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Status - Jelsa Jordbær</title>
   <link rel="icon" href="../favicon2.png" type="image/png" />
   <link rel="stylesheet" href="style.css" />
@@ -14,9 +15,17 @@
       margin-right: 1rem;
     }
 
-    .green { background-color: #28a745; }
-    .yellow { background-color: #ffc107; }
-    .red { background-color: #dc3545; }
+    .green {
+      background-color: #28a745;
+    }
+
+    .yellow {
+      background-color: #ffc107;
+    }
+
+    .red {
+      background-color: #dc3545;
+    }
 
     #admin-panel {
       margin-top: 2rem;
@@ -24,14 +33,17 @@
       padding-top: 1rem;
     }
 
-    #admin-panel input, #admin-panel select {
+    #admin-panel input,
+    #admin-panel select {
       margin: 0.5rem 0;
       display: block;
       width: 100%;
       padding: 0.5rem;
     }
 
-    .hidden { display: none; }
+    .hidden {
+      display: none;
+    }
 
     .button {
       padding: 0.5rem 1rem;
@@ -57,7 +69,7 @@
       background: white;
       padding: 8px 12px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       font-size: 0.9rem;
     }
 
@@ -75,22 +87,22 @@
       max-width: 600px;
       margin: 2rem auto;
     }
-    
+
     .loading {
       opacity: 0.6;
     }
-    
+
     #last-updated {
       font-size: 0.8rem;
       color: #666;
       margin-top: 1rem;
       text-align: center;
     }
-    
+
     .location-selector {
       margin-bottom: 1rem;
     }
-    
+
     .location-selector label {
       display: block;
       margin-bottom: 0.5rem;
@@ -98,6 +110,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>Jelsa Jordbær</h1>
@@ -113,9 +126,7 @@
       <li><a href="status.html">Status</a></li>
     </ul>
   </nav>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nb_NO/sdk.js#xfbml=1&version=v23.0"></script>
   <div class="image-container">
-    <div class="fb-page" data-href="https://www.facebook.com/jelsajordbaer" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/jelsajordbaer" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/jelsajordbaer">Jelsa Jordbær</a></blockquote></div>
     <h2>Status for utsalgssteder</h2>
     <div class="location-status">
       <div id="status-haugesund" class="status-indicator"></div>
@@ -129,7 +140,7 @@
       <div id="status-sand" class="status-indicator"></div>
       <span>Sand - </span><span id="status-text-sand" class="status-text"></span>
     </div>
-    
+
     <div id="last-updated"></div>
 
     <button class="button" onclick="toggleAdmin()">For jordbærselgere</button>
@@ -137,7 +148,7 @@
     <div id="admin-panel" class="hidden">
       <h3>Oppdater status</h3>
       <input type="text" id="token" placeholder="GitHub Token">
-      
+
       <div class="location-selector">
         <label for="location">Velg ditt utsalgssted:</label>
         <select id="location" onchange="updateLocationFields()">
@@ -147,7 +158,7 @@
           <option value="sand">Sand</option>
         </select>
       </div>
-      
+
       <div id="status-fields" style="display:none;">
         <label for="status">Status:</label>
         <select id="status">
@@ -157,17 +168,14 @@
         </select>
         <button class="button" onclick="lagreStatus()" style="margin-top: 1rem;">Lagre status</button>
       </div>
-      
+
       <button class="button" onclick="loggUt()" style="background-color:#dc3545; margin-top: 10px;">Logg ut</button>
     </div>
   </div>
 
   <script>
-    // Cache busting solution
-    Object.defineProperty(window, 'CACHE_BUSTER', {
-      value: Date.now(),
-      writable: false
-    });
+    
+    let updateTimer;
 
     const gistId = '26826facd1e67fbd0c421936f405df2c';
     const gistFilename = 'status.json';
@@ -179,7 +187,7 @@
       "lite bær igjen": "yellow",
       "stengt": "red"
     };
-    
+
     // Store current status data
     let currentStatusData = {
       haugesund: "",
@@ -202,11 +210,11 @@
       const adminPanel = document.getElementById('admin-panel');
       adminPanel.classList.toggle('hidden');
     }
-    
+
     function updateLocationFields() {
       const location = document.getElementById('location').value;
       const statusFields = document.getElementById('status-fields');
-      
+
       if (location) {
         statusFields.style.display = 'block';
         // Set current status for selected location
@@ -222,9 +230,8 @@
         el.textContent = 'Henter status...';
         el.classList.add('loading');
       });
-      
-      const cacheBuster = `&t=${Date.now()}`;
-      fetch(`${gistRawUrl}${cacheBuster}`)
+
+      fetch(`${gistRawUrl}?t=${Date.now()}`)
         .then(response => {
           if (!response.ok) throw new Error("Network response was not ok");
           return response.json();
@@ -236,11 +243,11 @@
             akra: data.akra,
             sand: data.sand
           };
-          
+
           oppdaterStatus('status-haugesund', data.haugesund);
           oppdaterStatus('status-akra', data.akra);
           oppdaterStatus('status-sand', data.sand);
-          
+
           // Update last updated time
           document.getElementById('last-updated').textContent = `Sist oppdatert: ${new Date().toLocaleTimeString()}`;
         })
@@ -281,12 +288,16 @@
         return;
       }
       
+
       const location = document.getElementById('location').value;
       if (!location) {
         alert("Du må velge et utsalgssted.");
         return;
       }
-      
+
+      // setter oppdatering på pause
+      clearInterval(updateTimer);
+
       const newStatus = document.getElementById('status').value;
 
       lagreTokenHvisNytt(token);
@@ -311,21 +322,24 @@
           }
         })
       })
-      .then(res => {
-        if (!res.ok) throw new Error("Feil ved oppdatering");
-        alert("Status oppdatert!");
-        hentStatus();
-      })
-      .catch(err => {
-        console.error(err);
-        alert("Klarte ikke å oppdatere Gist. Sjekk at token er gyldig.");
-      });
+        .then(res => {
+          if (!res.ok) throw new Error("Feil ved oppdatering");
+          alert("Status oppdatert!");
+          hentStatus();
+          updateTimer = setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Klarte ikke å oppdatere Gist. Sjekk at token er gyldig.");
+          updateTimer = setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
+        });
     }
 
     // Initialize
     hentLokalToken();
     hentStatus();
-    setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
+    updateTimer = setInterval(hentStatus, 20000); // Hent status hvert 20. sekund
   </script>
 </body>
-</html> 
+
+</html>
