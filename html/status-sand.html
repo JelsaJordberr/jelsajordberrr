@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Status - Jelsa Jordbær</title>
+  <link rel="icon" href="../favicon2.png" type="image/png" />
+  <link rel="stylesheet" href="style.css" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <style>
+    .status-indicator {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+
+    .green { background-color: #28a745; }
+    .red { background-color: #dc3545; }
+
+    #admin-panel {
+      margin-top: 2rem;
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+    }
+
+    #admin-panel input, #admin-panel select {
+      margin: 0.5rem 0;
+      display: block;
+      width: 90%;
+      padding: 0.5rem;
+    }
+
+    .hidden { display: none; }
+
+    .button {
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .location-status {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .loading {
+      opacity: 0.6;
+    }
+
+    #last-updated {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Jelsa Jordbær</h1>
+    <p>"Dei får bein å gå på"</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="../index.html">Hjem</a></li>
+      <li><a href="omoss.html">Om oss</a></li>
+      <li><a href="produkt.html">Produkter</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+      <li><a href="status.html">Status</a></li>
+    </ul>
+  </nav>
+
+  <div class="image-container">
+    <h2>Status for utsalgsboden i Sand</h2>
+    <div class="location-status">
+      <div id="status-sand" class="status-indicator"></div>
+      <span>Sand - </span><span id="status-text-sand" class="status-text"></span>
+    </div>
+
+    <div id="last-updated"></div>
+
+    <button class="button" onclick="toggleAdmin()">For jordbærselgere</button>
+
+    <div id="admin-panel" class="hidden">
+      <h3>Oppdater status for Sand</h3>
+      <input type="text" id="token" placeholder="GitHub Token" />
+
+      <label for="status">Status:</label>
+      <select id="status">
+        <option value="true">Åpent</option>
+        <option value="false">Stengt</option>
+      </select>
+
+      <button class="button" onclick="lagreStatus()" style="margin-top: 1rem;">Lagre status</button>
+      <button class="button" onclick="loggUt()" style="background-color:#dc3545; margin-top: 10px;">Logg ut</button>
+    </div>
+    <img src="../media/salgsbod.png" alt="Bilde av salgsboden på Sand.">
+  </div>
+
+  <script>
+    const gistId = 'f4dd0e60ab81d71b0c558cb053406601';
+    const gistFilename = 'sand.json';
+    const gistApiUrl = `https://api.github.com/gists/${gistId}`;
+
+    const statusMapping = {
+      true: "green",
+      false: "red"
+    };
+
+    let currentStatusData = {
+      sand: false
+    };
+
+    function oppdaterStatus(value) {
+      const indicatorEl = document.getElementById("status-sand");
+      const textEl = document.getElementById("status-text-sand");
+
+      const status = value === true;
+      indicatorEl.className = "status-indicator " + (statusMapping[status] || 'red');
+      textEl.textContent = status ? "Åpent" : "Stengt";
+    }
+
+    function toggleAdmin() {
+      const adminPanel = document.getElementById('admin-panel');
+      adminPanel.classList.toggle('hidden');
+      document.getElementById('status').value = currentStatusData.sand.toString();
+    }
+
+    function hentStatus() {
+      document.querySelectorAll('.status-text').forEach(el => {
+        el.textContent = 'Henter status...';
+        el.classList.add('loading');
+      });
+
+      fetch(`${gistApiUrl}?t=${Date.now()}`)
+        .then(response => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.json();
+        })
+        .then(data => {
+          const content = data.files[gistFilename].content;
+          const parsed = JSON.parse(content);
+          currentStatusData = { sand: parsed.sand };
+          oppdaterStatus(parsed.sand);
+          document.getElementById('last-updated').textContent = `Sist oppdatert: ${new Date().toLocaleTimeString()}`;
+        })
+        .catch(err => {
+          console.error("Feil ved henting av status:", err);
+          document.querySelectorAll('.status-text').forEach(el => {
+            if (el.textContent === 'Henter status...') {
+              el.textContent = 'Kunne ikke hente status';
+              el.classList.remove('loading');
+            }
+          });
+        });
+    }
+
+    function hentLokalToken() {
+      const token = localStorage.getItem('gistToken');
+      if (token) document.getElementById('token').value = token;
+    }
+
+    function lagreTokenHvisNytt(token) {
+      if (token && localStorage.getItem('gistToken') !== token) {
+        localStorage.setItem('gistToken', token);
+      }
+    }
+
+    function loggUt() {
+      localStorage.removeItem('gistToken');
+      alert("Du er logget ut.");
+      location.reload();
+    }
+
+    function lagreStatus() {
+      const token = document.getElementById('token').value.trim();
+      if (!token) {
+        alert("Du må fylle inn et GitHub-token.");
+        return;
+      }
+
+      const newStatus = document.getElementById('status').value === "true";
+      lagreTokenHvisNytt(token);
+
+      const updatedData = { sand: newStatus };
+
+      fetch(gistApiUrl, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': 'token ' + token,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          files: {
+            [gistFilename]: {
+              content: JSON.stringify(updatedData, null, 2)
+            }
+          }
+        })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("Feil ved oppdatering");
+        alert("Status oppdatert!");
+        hentStatus();
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Klarte ikke å oppdatere Gist. Sjekk at token er gyldig.");
+      });
+    }
+
+    hentLokalToken();
+    hentStatus();
+    setInterval(hentStatus, 20000);
+  </script>
+</body>
+</html>
