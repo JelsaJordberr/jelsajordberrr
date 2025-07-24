@@ -108,7 +108,9 @@
       <button class="button" onclick="lagreStatus()" style="margin-top: 1rem;">Lagre status</button>
       <button class="button" onclick="loggUt()" style="background-color:#dc3545; margin-top: 10px;">Logg ut</button>
     </div>
-    <img src="../media/salgsbod.png" alt="Bilde av salgsboden i Åkra">
+
+    <!-- ✅ Updated image with ID -->
+    <img id="status-image" src="../media/salgsbod.png" alt="Bilde av salgsboden i Åkra">
   </div>
 
   <script>
@@ -130,13 +132,21 @@
       akra: false
     };
 
+    // ✅ Updated to switch image source
     function oppdaterStatus(value) {
       const indicatorEl = document.getElementById("status-akra");
       const textEl = document.getElementById("status-text-akra");
+      const imageEl = document.getElementById("status-image");
 
       const status = value === true;
       indicatorEl.className = "status-indicator " + (statusMapping[status] || 'red');
       textEl.textContent = status ? "Åpent" : "Stengt";
+
+      if (imageEl) {
+        imageEl.src = status
+          ? "../media/salgsbod_open.jpg"
+          : "../media/salgsbod_closed.png";
+      }
     }
 
     function toggleAdmin() {

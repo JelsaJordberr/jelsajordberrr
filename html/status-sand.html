@@ -108,7 +108,9 @@
       <button class="button" onclick="lagreStatus()" style="margin-top: 1rem;">Lagre status</button>
       <button class="button" onclick="loggUt()" style="background-color:#dc3545; margin-top: 10px;">Logg ut</button>
     </div>
-    <img src="../media/salgsbod.png" alt="Bilde av salgsboden på Sand.">
+
+    <!-- ✅ Updated image with ID for dynamic switching -->
+    <img id="status-image" src="../media/salgsbod.png" alt="Bilde av salgsboden på Sand.">
   </div>
 
   <script>
@@ -125,13 +127,21 @@
       sand: false
     };
 
+    // ✅ Updated to switch image based on status
     function oppdaterStatus(value) {
       const indicatorEl = document.getElementById("status-sand");
       const textEl = document.getElementById("status-text-sand");
+      const imageEl = document.getElementById("status-image");
 
       const status = value === true;
       indicatorEl.className = "status-indicator " + (statusMapping[status] || 'red');
       textEl.textContent = status ? "Åpent" : "Stengt";
+
+      if (imageEl) {
+        imageEl.src = status
+          ? "../media/salgsbod_open.jpg"
+          : "../media/salgsbod_closed.png";
+      }
     }
 
     function toggleAdmin() {

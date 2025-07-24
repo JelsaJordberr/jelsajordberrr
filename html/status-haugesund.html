@@ -108,7 +108,9 @@
       <button class="button" onclick="lagreStatus()" style="margin-top: 1rem;">Lagre status</button>
       <button class="button" onclick="loggUt()" style="background-color:#dc3545; margin-top: 10px;">Logg ut</button>
     </div>
-    <img src="../media/salgsbod.png" alt="Bilde av salgsboden utenfor Spar Spannavegen.">
+
+    <!-- ✅ Updated image tag with ID -->
+    <img id="status-image" src="../media/salgsbod.png" alt="Bilde av salgsboden utenfor Spar Spannavegen.">
   </div>
 
   <script>
@@ -130,13 +132,21 @@
       haugesund: false
     };
 
+    // ✅ Updated function to change image based on status
     function oppdaterStatus(value) {
       const indicatorEl = document.getElementById("status-haugesund");
       const textEl = document.getElementById("status-text-haugesund");
+      const imageEl = document.getElementById("status-image");
 
       const status = value === true;
       indicatorEl.className = "status-indicator " + (statusMapping[status] || 'red');
       textEl.textContent = status ? "Åpent" : "Stengt";
+
+      if (imageEl) {
+        imageEl.src = status
+          ? "../media/salgsbod_open.jpg"
+          : "../media/salgsbod_closed.png";
+      }
     }
 
     function toggleAdmin() {
