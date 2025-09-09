@@ -5,96 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Velg Utsalgssted - Jelsa Jordbær</title>
   <link rel="icon" href="../favicon2.png" type="image/png" />
+  <link rel="stylesheet" href="style.css" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 
   <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      color: #333;
-    }
-
-    header {
+    .info-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 2rem auto;
       text-align: center;
-      padding: 2rem 1rem 1rem;
     }
 
     header h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: #c62828;
+      margin-bottom: 0;
     }
 
-    header p {
-      margin: 0;
-      font-style: italic;
-      color: #666;
-    }
-
-    nav ul {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      padding: 0;
-      margin: 1rem 0 2rem;
-      gap: 1rem;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #c62828;
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: background 0.2s ease;
-    }
-
-    nav a:hover {
-      background: rgba(198, 40, 40, 0.1);
-    }
-
-    .info-section {
-      max-width: 800px;
-      margin: auto;
-      text-align: center;
-      padding: 1rem;
-    }
-
-    .info-section h2 {
-      margin-bottom: 1.5rem;
-      font-size: 1.6rem;
-    }
-
-    .locations {
+    /* Sleek location chooser */
+    .location-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 1.5rem;
-      justify-items: center;
+      margin-top: 1.5rem;
     }
 
     .location-card {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      height: 120px;
-      background: white;
-      border-radius: 16px;
-      text-decoration: none;
-      color: #333;
-      font-size: 1.2rem;
+      padding: 2rem 1rem;
+      background: #f8f9fa;
+      border-radius: 15px;
+      font-size: 1.3rem;
       font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: #007bff;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
     }
 
     .location-card:hover {
+      background: #007bff;
+      color: white;
       transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-      color: #c62828;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #333;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: #007bff;
     }
   </style>
 </head>
@@ -116,10 +93,16 @@
 
   <div class="info-section">
     <h2>Velg utsalgssted</h2>
-    <div class="locations">
-      <a class="location-card" href="status-haugesund.html">Haugesund</a>
-      <a class="location-card" href="status-akra.html">Åkra</a>
-      <a class="location-card" href="status-sand.html">Sand</a>
+    <div class="location-grid">
+      <a class="location-card" href="status-haugesund.html">
+        <span>Haugesund</span>
+      </a>
+      <a class="location-card" href="status-akra.html">
+        <span>Åkra</span>
+      </a>
+      <a class="location-card" href="status-sand.html">
+        <span>Sand</span>
+      </a>
     </div>
   </div>
 </body>
