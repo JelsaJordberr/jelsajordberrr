@@ -64,6 +64,8 @@
 .button:hover { background: #125300 !important; }
 .button:disabled { cursor: wait; opacity: 0.65; }
 .logout-button { background: #a20b0b !important; }
+.delete-message-button { background: #666 !important; }
+.delete-message-button:hover { background: #444 !important; }
 .form-message { min-height: 1.5rem; }
 .form-message.error { color: #a20b0b; }
 .form-message.success { color: #176b00; }

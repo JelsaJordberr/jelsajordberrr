@@ -9,6 +9,19 @@
   const loginForm = document.getElementById("login-form");
   const updateForm = document.getElementById("update-form");
   const formMessage = document.getElementById("form-message");
+  let refreshTimer;
+
+  function startRefreshTimer(interval) {
+    clearInterval(refreshTimer);
+    refreshTimer = setInterval(refreshStatus, interval);
+  }
+
+  function toDateTimeLocal(isoDate) {
+    if (!isoDate) return "";
+    const date = new Date(isoDate);
+    const offset = date.getTimezoneOffset() * 60000;
+    return new Date(date.getTime() - offset).toISOString().slice(0, 16);
+  }
 
   function showFormMessage(message, isError = false) {
     formMessage.textContent = message;
@@ -23,15 +36,21 @@
 
   function renderBooth(booth) {
     const isOpen = booth.status === "open";
+    const messageHasExpired = booth.message_expires_at
+      && new Date(booth.message_expires_at) <= new Date();
+    const visibleMessage = messageHasExpired ? "" : booth.message;
     statusIndicator.className = `status-indicator ${isOpen ? "green" : "red"}`;
     statusText.textContent = isOpen ? "Åpent" : "Stengt";
     statusImage.src = isOpen
       ? "../media/salgsbod_open.jpg"
       : "../media/salgsbod_closed.jpg";
-    messageText.textContent = booth.message || "";
-    messageText.classList.toggle("hidden", !booth.message);
+    messageText.textContent = visibleMessage || "";
+    messageText.classList.toggle("hidden", !visibleMessage);
     document.getElementById("status-input").value = booth.status;
-    document.getElementById("message-input").value = booth.message || "";
+    document.getElementById("message-input").value = messageHasExpired ? "" : booth.message || "";
+    document.getElementById("message-expires-at").value = messageHasExpired
+      ? ""
+      : toDateTimeLocal(booth.message_expires_at);
     lastUpdated.textContent = booth.updated_at
       ? `Sist oppdatert: ${new Date(booth.updated_at).toLocaleString("no-NO")}`
       : "";
@@ -49,6 +68,7 @@
 
   document.getElementById("seller-toggle").addEventListener("click", () => {
     sellerPanel.classList.toggle("hidden");
+    startRefreshTimer(sellerPanel.classList.contains("hidden") ? 20000 : 180000);
   });
 
   loginForm.addEventListener("submit", async (event) => {
@@ -78,7 +98,10 @@
       const booth = await window.boothStatusApi.updateBoothStatus(
         boothId,
         document.getElementById("status-input").value,
-        document.getElementById("message-input").value
+        document.getElementById("message-input").value,
+        document.getElementById("message-expires-at").value
+          ? new Date(document.getElementById("message-expires-at").value).toISOString()
+          : null
       );
       renderBooth(booth);
       showFormMessage("Statusen er oppdatert.");
@@ -89,6 +112,27 @@
       );
     } finally {
       saveButton.disabled = false;
+    }
+  });
+
+  document.getElementById("delete-message-button").addEventListener("click", async () => {
+    const deleteButton = document.getElementById("delete-message-button");
+    deleteButton.disabled = true;
+    showFormMessage("Sletter melding ...");
+
+    try {
+      const booth = await window.boothStatusApi.updateBoothStatus(
+        boothId,
+        document.getElementById("status-input").value,
+        "",
+        null
+      );
+      renderBooth(booth);
+      showFormMessage("Meldingen er slettet.");
+    } catch (error) {
+      showFormMessage(`Kunne ikke slette meldingen. ${error.message}`, true);
+    } finally {
+      deleteButton.disabled = false;
     }
   });
 
@@ -107,5 +151,5 @@
     .catch((error) => showFormMessage(`Kunne ikke kontrollere innlogging: ${error.message}`, true));
 
   refreshStatus(true);
-  setInterval(refreshStatus, 20000);
+  startRefreshTimer(20000);
 })();

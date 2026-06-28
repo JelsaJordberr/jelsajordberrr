@@ -16,6 +16,7 @@ create table public.booths (
   name text not null,
   status text not null default 'closed' check (status in ('open', 'closed')),
   message text,
+  message_expires_at timestamptz,
   updated_at timestamptz not null default now(),
   updated_by uuid references auth.users(id)
 );
@@ -25,6 +26,13 @@ insert into public.booths (id, name) values
   ('akra', 'Åkra'),
   ('sand', 'Sand')
 on conflict (id) do nothing;
+```
+
+Hvis tabellen allerede finnes, legg til utløpskolonnen separat:
+
+```sql
+alter table public.booths
+add column if not exists message_expires_at timestamptz;
 ```
 
 Slå på Row Level Security. Offentlig lesing og oppdatering begrenset til brukerens tildelte boder
@@ -68,5 +76,8 @@ selgeren logge ut og inn igjen for å få et nytt token.
 
 Start nettstedet via en lokal webserver eller den publiserte nettsiden. Åpne en statusside og
 kontroller at statusen lastes uten innlogging. Velg **For jordbærselgere**, logg inn med en bruker
-fra Supabase, endre status eller melding og lagre. Test også en bod brukeren ikke er tildelt; den
-skal avvises av RLS. En åpen statusside sjekker stille etter nye data hvert 20. sekund.
+fra Supabase, endre status eller melding, velg eventuelt når meldingen skal utløpe, og lagre.
+Knappen **Slett melding** fjerner både meldingen og utløpsdatoen. Test også en bod brukeren ikke er tildelt; den
+skal avvises av RLS. En åpen statusside sjekker stille etter nye data hvert 20. sekund. Mens
+**For jordbærselgere**-panelet er åpent, reduseres dette til én sjekk hvert 3. minutt. Når panelet
+lukkes, brukes 20 sekunder igjen.

@@ -9,7 +9,7 @@ const supabaseClient = window.supabase.createClient(
 async function loadBoothStatus(boothId) {
   const { data, error } = await supabaseClient
     .from("booths")
-    .select("id, name, status, message, updated_at")
+    .select("id, name, status, message, message_expires_at, updated_at")
     .eq("id", boothId)
     .single();
 
@@ -17,16 +17,18 @@ async function loadBoothStatus(boothId) {
   return data;
 }
 
-async function updateBoothStatus(boothId, status, message) {
+async function updateBoothStatus(boothId, status, message, messageExpiresAt = null) {
+  const cleanMessage = message.trim();
   const { data, error } = await supabaseClient
     .from("booths")
     .update({
       status,
-      message: message.trim() || null,
+      message: cleanMessage || null,
+      message_expires_at: cleanMessage ? messageExpiresAt : null,
       updated_at: new Date().toISOString()
     })
     .eq("id", boothId)
-    .select("id, name, status, message, updated_at")
+    .select("id, name, status, message, message_expires_at, updated_at")
     .single();
 
   if (error) throw error;
