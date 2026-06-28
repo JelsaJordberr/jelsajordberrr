@@ -5,61 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Velg Utsalgssted - Jelsa Jordbær</title>
   <link rel="icon" href="../favicon2.png" type="image/png" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="status-page.css?v=3" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 
-  <style>
-    .info-section {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      max-width: 600px;
-      margin: 2rem auto;
-      text-align: center;
-    }
-
-    header h1 {
-      margin-bottom: 0;
-    }
-
-    /* Sleek location chooser */
-    .location-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    .location-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-      background: #f8f9fa;
-      border-radius: 15px;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #068321;
-      text-decoration: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-      transition: all 0.25s ease;
-    }
-
-    .location-card:hover {
-      background: #007bff;
-      color: white;
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    }
-
-    
-
-    nav a:hover {
-      color: #710606;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -73,23 +24,27 @@
       <li><a href="omoss.html">Om oss</a></li>
       <li><a href="produkt.html">Produkter</a></li>
       <li><a href="kontakt.html">Kontakt</a></li>
-      <li><a href="status.html">Status</a></li>
+      <li><a href="status.html" aria-current="page">Status</a></li>
     </ul>
   </nav>
 
-  <div class="info-section">
-    <h2>Velg utsalgssted</h2>
+  <main class="image-container status-chooser">
+    <div class="page-intro">
+      <span class="eyebrow">Dagens oversikt</span>
+      <h2>Vel utsalsstad</h2>
+      <p>Sjå om boden er open og les eventuelle meldingar før du køyrer.</p>
+    </div>
     <div class="location-grid">
       <a class="location-card" href="status-haugesund.html">
-        <span>Haugesund</span>
+        <span>Haugesund<small>Sjå status →</small></span>
       </a>
       <a class="location-card" href="status-akra.html">
-        <span>Åkra</span>
+        <span>Åkra<small>Sjå status →</small></span>
       </a>
       <a class="location-card" href="status-sand.html">
-        <span>Sand</span>
+        <span>Sand<small>Sjå status →</small></span>
       </a>
     </div>
-  </div>
+  </main>
 </body>
 </html>

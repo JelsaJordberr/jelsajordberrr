@@ -6,6 +6,8 @@ body {
     font-family:'Franklin Gothic Medium', Arial, sans-serif;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    color: #252525;
 }
 
 /* === Header (felles for alle) === */
@@ -52,6 +54,10 @@ nav a:hover {
     background-color: #860909;
     border-radius: 5px;
 }
+nav a[aria-current="page"] {
+    background-color: #a20b0b;
+    border-radius: 5px;
+}
 
 /* === Felles container for innhold === */
 main, .chat-container, .image-container {
@@ -73,6 +79,103 @@ p, li {
     font-size: 1em;
     line-height: 1.6em;
     margin: 10px 0;
+}
+
+/* === Felles sideinnhold === */
+.page-intro {
+    max-width: 640px;
+    margin: 0 auto 22px;
+    text-align: center;
+}
+.page-intro h2 {
+    margin: 3px 0 7px;
+}
+.page-intro p {
+    color: #555;
+    margin: 0;
+}
+.eyebrow {
+    color: #1a7600;
+    font-size: 0.8em;
+    font-weight: bold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+.content-card {
+    overflow: hidden;
+    border: 1px solid #e4e4e4;
+    border-radius: 9px;
+    background: #fff;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+}
+.content-card-body {
+    padding: 22px;
+}
+.feature-image {
+    display: block;
+    width: 100%;
+    max-height: 460px;
+    object-fit: cover;
+}
+.season-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+}
+.season-list li {
+    margin: 0;
+    padding: 12px 14px;
+    border-left: 4px solid #1a7600;
+    border-radius: 5px;
+    background: #f6f7f3;
+}
+.season-list strong {
+    display: block;
+    color: #a20b0b;
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+.contact-card {
+    padding: 18px;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    background: #fafafa;
+}
+.contact-card h3 {
+    color: #a20b0b;
+    margin: 0 0 6px;
+}
+.contact-card p {
+    margin: 0;
+}
+.contact-card a {
+    color: #1a7600;
+    font-weight: bold;
+}
+.story-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 24px;
+    align-items: start;
+}
+.story-highlight {
+    padding: 20px;
+    border-radius: 8px;
+    background: #f3f7f1;
+    border-left: 4px solid #1a7600;
+}
+.story-highlight h3 {
+    color: #a20b0b;
+    margin-top: 0;
+}
+.fb-page-wrap {
+    min-width: 0;
+    text-align: center;
 }
 
 /* === Chat === */
@@ -110,26 +213,123 @@ p, li {
 }
 
 /* === Bildevisning (produkt.html) === */
-.image-container img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+.image-container {
+    max-width: 860px;
 }
-.image-container button {
-    background-color: #ccc;
-    color: #333;
-    border: none;
-    padding: 5px 10px;
-    margin: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.product-intro {
+    text-align: center;
+    margin-bottom: 20px;
 }
-.image-container button:hover {
-    background-color: #bbb;
+.product-intro h2 {
+    margin: 3px 0 5px;
+}
+.product-intro p {
+    color: #555;
+    margin: 0;
+}
+.product-kicker {
+    color: #1a7600;
+    font-size: 0.8em;
+    font-weight: bold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+.product-card {
+    overflow: hidden;
+    border: 1px solid #e4e4e4;
+    border-radius: 9px;
+    background-color: #fff;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+}
+.product-image-frame {
+    position: relative;
+    height: 430px;
+    overflow: hidden;
+    background-color: #eee;
+}
+.product-image-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.product-count {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background-color: rgba(0,0,0,0.65);
+    color: #fff;
+    font-size: 0.85em;
+}
+.product-details {
+    min-height: 92px;
+    padding: 18px 22px 12px;
+    text-align: center;
+}
+.product-details h3 {
+    color: #a20b0b;
+    font-size: 1.45em;
+    margin: 0 0 5px;
 }
 #description {
-    font-size: 1.1em;
-    margin-top: 10px;
+    color: #444;
+    font-size: 1.05em;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 620px;
+}
+.product-controls {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px 16px;
+}
+.image-container button {
+    min-width: 110px;
+    background-color: #1a7600;
+    color: #fff;
+    border: 2px solid #1a7600;
+    border-radius: 6px;
+    padding: 9px 15px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: bold;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+#prev-btn {
+    justify-self: start;
+    background-color: #fff;
+    color: #1a7600;
+}
+#next-btn {
+    justify-self: end;
+}
+.image-container button:hover {
+    background-color: #a20b0b;
+    border-color: #a20b0b;
+    color: #fff;
+    transform: translateY(-1px);
+}
+.image-container button:focus-visible {
+    outline: 3px solid rgba(26,118,0,0.3);
+    outline-offset: 3px;
+}
+.product-dots {
+    display: flex;
+    gap: 7px;
+}
+.product-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+.product-dots .active {
+    background-color: #a20b0b;
+    transform: scale(1.25);
 }
 
 /* === Galleri (ved.html) === */
@@ -236,5 +436,34 @@ p, li {
 
     .modal-content {
         width: 95%;
+    }
+
+    .image-container {
+        padding: 14px;
+    }
+
+    .product-image-frame {
+        height: 290px;
+    }
+
+    .product-details {
+        min-height: 115px;
+        padding: 16px 14px 10px;
+    }
+
+    .product-controls {
+        gap: 6px;
+        padding: 10px;
+    }
+
+    .image-container button {
+        min-width: 0;
+        padding: 8px 10px;
+    }
+
+    .season-list,
+    .contact-grid,
+    .story-grid {
+        grid-template-columns: 1fr;
     }
 }

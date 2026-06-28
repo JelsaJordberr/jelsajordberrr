@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="../favicon2.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
     <header>
@@ -18,21 +18,22 @@
             <li><a href="../index.html">Hjem</a></li>
             <li><a href="omoss.html">Om oss</a></li>
             <li><a href="produkt.html">Produkter</a></li>
-            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="kontakt.html" aria-current="page">Kontakt</a></li>
             <li><a href="status.html">Status</a></li>
         </ul>
     </nav>
-        <!-- Bruk container-klassen fra produkt/chat-siden -->
-        <div class="image-container">
-            <div id="fb-root"></div>
-            <h2>Kontakt oss gjerne om det er noe du lurer på</h2>
-            <h4>Kontakt oss på:</h4>
-            <ul>
-                <li>Telefon: 907 32 537</li>
-                <li>Epost: helge@jelsajordbaer.no</li>
-                <li>Facebook:<a href="https://www.facebook.com/jelsajordbaer"> Jelsa Jordbær</a></li>
-                <li>Adresse: Gjerdevegen 54, 4234 Jelsa</li>
-            </ul>
-        </div>
+        <main class="image-container">
+            <div class="page-intro">
+                <span class="eyebrow">Ta kontakt</span>
+                <h2>Me høyrer gjerne frå deg</h2>
+                <p>Har du spørsmål om bær, sesong eller utsalsstader? Vel den måten som passar best.</p>
+            </div>
+            <section class="contact-grid">
+                <article class="contact-card"><h3>Telefon</h3><p><a href="tel:+4790732537">907 32 537</a></p></article>
+                <article class="contact-card"><h3>E-post</h3><p><a href="mailto:helge@jelsajordbaer.no">helge@jelsajordbaer.no</a></p></article>
+                <article class="contact-card"><h3>Facebook</h3><p><a href="https://www.facebook.com/jelsajordbaer">Jelsa Jordbær</a></p></article>
+                <article class="contact-card"><h3>Adresse</h3><p>Gjerdevegen 54<br>4234 Jelsa</p></article>
+            </section>
+        </main>
 </body>
 </html>

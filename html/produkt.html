@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bildegalleri - Jelsa Jordbær</title>
   <link rel="icon" type="image/png" href="../favicon2.png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <header>
@@ -16,56 +16,94 @@
       <ul>
         <li><a href="../index.html">Hjem</a></li>
         <li><a href="omoss.html">Om oss</a></li>
-        <li><a href="produkt.html">Produkter</a></li>
+        <li><a href="produkt.html" aria-current="page">Produkter</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
         <li><a href="status.html">Status</a></li>
       </ul>
   </nav>
-  <div class="image-container">
-    <h2>Her kan du se på produktene våre!</h2>
-    <img id="gallery-image" src="#" alt="">
-    <div id="description"></div>
-    <div>
-      <button id="prev-btn">Forrige</button>
-      <button id="next-btn">Neste</button>
+  <main class="image-container">
+    <div class="product-intro">
+      <span class="product-kicker">Frå Ryfylke</span>
+      <h2>Produktene våre</h2>
+      <p>Bla gjennom det me dyrkar og tilbyr gjennom sesongen.</p>
     </div>
-  </div>
-  <script>
-    const images = [
-      '../media/moreller.png',
-      '../media/bringebeer.png',
-      '../media/sonsationv2.png',
-    ];
 
-    const descriptions = [
-      'Deilige moreller fra Hjelmeland, fulle av smak og friskhet.',
-      'Søte fine bringebær!',
-      'Ferske Sonsation jordbær, kjent for sin fasthet og for å tåle kjøleskapet.',
+    <section class="product-card" aria-label="Produktgalleri">
+      <div class="product-image-frame">
+        <img id="gallery-image" src="#" alt="">
+        <span id="product-count" class="product-count" aria-hidden="true"></span>
+      </div>
+
+      <div class="product-details" aria-live="polite">
+        <h3 id="product-name"></h3>
+        <p id="description"></p>
+      </div>
+
+      <div class="product-controls">
+        <button id="prev-btn" type="button" aria-label="Vis førre produkt">
+          <span aria-hidden="true">←</span> Førre
+        </button>
+        <div id="product-dots" class="product-dots" aria-hidden="true"></div>
+        <button id="next-btn" type="button" aria-label="Vis neste produkt">
+          Neste <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+  </main>
+  <script>
+    const products = [
+      {
+        name: 'Moreller',
+        image: '../media/moreller.png',
+        description: 'Deilige moreller frå Hjelmeland, fulle av smak og friskheit.',
+        alt: 'Nyskotne moreller frå Hjelmeland'
+      },
+      {
+        name: 'Bringebær',
+        image: '../media/bringebeer.png',
+        description: 'Søte, fine bringebær – best når dei er heilt ferske.',
+        alt: 'Ferske bringebær i ei korg'
+      },
+      {
+        name: 'Sonsation-jordbær',
+        image: '../media/sonsationv2.png',
+        description: 'Ferske Sonsation-jordbær, kjende for fast konsistens og god haldbarheit i kjøleskapet.',
+        alt: 'Raude Sonsation-jordbær frå Jelsa'
+      },
     ];
 
     let currentIndex = 0;
     const galleryImage = document.getElementById('gallery-image');
+    const productName = document.getElementById('product-name');
     const descriptionText = document.getElementById('description');
+    const productCount = document.getElementById('product-count');
+    const productDots = document.getElementById('product-dots');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
 
     function updateImage() {
-      galleryImage.src = images[currentIndex];
-      galleryImage.alt = `Bilde ${currentIndex + 1}`;
-      descriptionText.textContent = descriptions[currentIndex];
+      const product = products[currentIndex];
+      galleryImage.src = product.image;
+      galleryImage.alt = product.alt;
+      productName.textContent = product.name;
+      descriptionText.textContent = product.description;
+      productCount.textContent = `${currentIndex + 1} / ${products.length}`;
+      productDots.innerHTML = products
+        .map((_, index) => `<span class="${index === currentIndex ? 'active' : ''}"></span>`)
+        .join('');
     }
 
     prevBtn.addEventListener('click', () => {
       currentIndex--;
       if (currentIndex < 0) {
-        currentIndex = images.length - 1;
+        currentIndex = products.length - 1;
       }
       updateImage();
     });
 
     nextBtn.addEventListener('click', () => {
       currentIndex++;
-      if (currentIndex >= images.length) {
+      if (currentIndex >= products.length) {
         currentIndex = 0;
       }
       updateImage();

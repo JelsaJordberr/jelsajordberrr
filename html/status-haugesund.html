@@ -5,25 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Status Haugesund - Jelsa Jordbær</title>
   <link rel="icon" type="image/png" href="../favicon2.png">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="status-page.css">
+  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="status-page.css?v=11">
 </head>
 <body data-booth-id="haugesund">
   <header><h1>Jelsa Jordbær</h1><p>"Dei får bein å gå på"</p></header>
-  <nav><ul><li><a href="../index.html">Hjem</a></li><li><a href="omoss.html">Om oss</a></li><li><a href="produkt.html">Produkter</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="status.html">Status</a></li></ul></nav>
+  <nav><ul><li><a href="../index.html">Hjem</a></li><li><a href="omoss.html">Om oss</a></li><li><a href="produkt.html">Produkter</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="status.html" aria-current="page">Status</a></li></ul></nav>
   <main class="image-container">
-    <h2>Status for utsalgsboden i Haugesund</h2>
-    <div class="location-status"><div id="booth-status-indicator" class="status-indicator"></div><span>Haugesund –&nbsp;</span><span id="booth-status-text">Henter status ...</span></div>
-    <p id="booth-message" class="booth-message hidden"></p>
-    <div id="last-updated"></div>
-    <button id="seller-toggle" class="button" type="button">For jordbærselgere</button>
-    <section id="seller-panel" class="hidden">
-      <h3>Oppdater Haugesund</h3>
-      <form id="login-form"><label for="email">E-post</label><input id="email" type="email" autocomplete="username" required><label for="password">Passord</label><input id="password" type="password" autocomplete="current-password" required><button class="button" type="submit">Logg inn</button></form>
-      <form id="update-form" class="hidden"><p>Innlogget som <strong id="logged-in-user"></strong></p><label for="status-input">Status</label><select id="status-input"><option value="open">Åpent</option><option value="closed">Stengt</option></select><label for="message-input">Melding (valgfri)</label><textarea id="message-input" maxlength="300" placeholder="For eksempel: Kun 20 kasser igjen"></textarea><label for="message-expires-at">Vis melding til (valgfritt)</label><input id="message-expires-at" type="datetime-local"><button id="save-button" class="button" type="submit">Lagre status</button><button id="delete-message-button" class="button delete-message-button" type="button">Slett melding</button><button id="logout-button" class="button logout-button" type="button">Logg ut</button></form>
-      <p id="form-message" class="form-message" aria-live="polite"></p>
+    <section class="status-overview">
+      <div class="status-copy"><div class="page-intro"><span class="eyebrow">Utsalsbod</span><h2>Haugesund</h2><p>Her ser du den siste oppdateringa frå seljaren.</p></div><div class="location-status"><div id="booth-status-indicator" class="status-indicator"></div><span id="booth-status-text">Hentar status ...</span></div><p id="booth-message" class="booth-message hidden"></p><div id="last-updated"></div><a class="button status-back" href="status.html">← Alle utsalsstader</a></div>
+      <img id="status-image" class="status-photo" src="../media/salgsbod_closed.jpg" alt="Bilete av salsboda utanfor Spar Spannavegen.">
     </section>
-    <img id="status-image" src="../media/salgsbod_closed.jpg" alt="Bilde av salgsboden utenfor Spar Spannavegen.">
   </main>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="../js/supabase-status.js"></script><script src="../js/booth-page.js"></script>
 </body>

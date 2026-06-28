@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Selgerpanel - Jelsa Jordbær</title>
+  <link rel="icon" type="image/png" href="../favicon2.png">
+  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="status-page.css?v=3">
+</head>
+<body>
+  <header><h1>Jelsa Jordbær</h1><p>Selgerpanel</p></header>
+  <main class="image-container seller-shell">
+    <div class="page-intro">
+      <span class="eyebrow">For selgere</span>
+      <h2>Oppdater utsalgssted</h2>
+      <p>Logg inn for å endre status eller legge ut en kort melding til kundene.</p>
+    </div>
+    <p class="seller-notice">Denne siden er ikke lenket fra nettsiden. Lagre adressen som bokmerke på telefonen.</p>
+    <section id="seller-panel" class="seller-panel-card">
+      <form id="login-form">
+        <h3>Logg inn</h3>
+        <label for="email">E-post</label>
+        <input id="email" type="email" autocomplete="username" required>
+        <label for="password">Passord</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <div class="form-actions"><button class="button" type="submit">Logg inn</button></div>
+      </form>
+      <form id="update-form" class="hidden">
+        <p>Innlogget som <strong id="logged-in-user"></strong></p>
+        <div class="booth-picker">
+          <label for="booth-input">Utsalgssted</label>
+          <select id="booth-input">
+            <option value="haugesund">Haugesund</option>
+            <option value="akra">Åkra</option>
+            <option value="sand">Sand</option>
+          </select>
+        </div>
+        <label for="status-input">Status</label>
+        <select id="status-input"><option value="open">Åpent</option><option value="closed">Stengt</option></select>
+        <label for="message-input">Melding (valgfri)</label>
+        <textarea id="message-input" maxlength="300" placeholder="For eksempel: Kun 20 kasser igjen"></textarea>
+        <label for="message-expires-at">Vis melding til (valgfritt)</label>
+        <input id="message-expires-at" type="datetime-local">
+        <div class="form-actions">
+          <button id="save-button" class="button" type="submit">Lagre status</button>
+          <button id="delete-message-button" class="button delete-message-button" type="button">Slett melding</button>
+          <button id="logout-button" class="button logout-button" type="button">Logg ut</button>
+        </div>
+      </form>
+      <p id="form-message" class="form-message" aria-live="polite"></p>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-status.js"></script>
+  <script src="../js/seller-page.js"></script>
+</body>
+</html>

@@ -1,9 +1,62 @@
+body[data-booth-id] > .image-container {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.status-overview {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid #e4e4e4;
+  border-radius: 9px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+  background: #fff;
+}
+
+.status-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 34px;
+  text-align: center;
+}
+.status-copy .page-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 620px);
+  max-width: 100%;
+  margin: 0 0 20px;
+  text-align: center;
+}
+.status-copy .page-intro h2,
+.status-copy .page-intro p,
+.status-copy .page-intro .eyebrow {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.status-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+}
 .status-indicator {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-right: 1rem;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 58px;
+  height: 5px;
+  border-radius: 999px;
+  margin: 0;
+  transform: translateX(-50%);
   background: #999;
+  box-shadow: 0 2px 7px rgba(0,0,0,0.18);
 }
 
 .green { background-color: #28a745; }
@@ -11,13 +64,21 @@
 .hidden { display: none; }
 
 .location-status {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+  position: relative;
+  display: block;
+  width: min(100%, 620px);
+  max-width: 100%;
+  margin: 0 auto 1rem;
+  padding: 0 1rem 15px;
+  box-sizing: border-box;
+  font-size: 1.35rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 .booth-message {
+  width: min(100%, 620px);
+  box-sizing: border-box;
   padding: 0.8rem 1rem;
   background: #fff4cf;
   border-left: 4px solid #a20b0b;
@@ -25,9 +86,24 @@
 }
 
 #last-updated {
+  width: min(100%, 620px);
   color: #666;
   font-size: 0.85rem;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
+  text-align: center;
+}
+
+.status-back {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  margin-top: 8px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: none;
 }
 
 #seller-panel {
@@ -35,6 +111,29 @@
   padding-top: 1rem;
   border-top: 1px solid #ccc;
 }
+
+.seller-shell { max-width: 720px; }
+.seller-notice {
+  margin-bottom: 18px;
+  padding: 12px 15px;
+  border-left: 4px solid #1a7600;
+  border-radius: 5px;
+  background: #f3f7f1;
+}
+.seller-panel-card {
+  padding: 22px;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  background: #fafafa;
+}
+.seller-panel-card h3 { margin-top: 0; }
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.booth-picker { margin-bottom: 18px; }
 
 #seller-panel label,
 #seller-panel input,
@@ -69,3 +168,53 @@
 .form-message { min-height: 1.5rem; }
 .form-message.error { color: #a20b0b; }
 .form-message.success { color: #176b00; }
+
+@media (max-width: 700px) {
+  .location-grid { grid-template-columns: 1fr; }
+  .location-card { min-height: 80px; }
+  .status-overview { grid-template-columns: 1fr; }
+  .status-photo { height: auto; }
+  .status-copy { padding: 24px 18px; }
+  .status-back {
+    width: min(100%, 260px);
+    box-sizing: border-box;
+  }
+}
+.status-chooser { max-width: 720px; }
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.location-card {
+  display: flex;
+  align-items: center;
+  min-height: 120px;
+  padding: 20px;
+  color: #1a7600;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border: 1px solid #e1e1e1;
+  border-bottom: 4px solid #1a7600;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 5px 14px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+.location-card span { width: 100%; }
+.location-card small {
+  display: block;
+  margin-top: 7px;
+  color: #666;
+  font-size: 0.7em;
+  font-weight: normal;
+}
+.location-card:hover {
+  color: #fff;
+  background: #a20b0b;
+  border-bottom-color: #a20b0b;
+  transform: translateY(-3px);
+}
+.location-card:hover small { color: #fff; }
