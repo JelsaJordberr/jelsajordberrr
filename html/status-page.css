@@ -169,17 +169,6 @@ body[data-booth-id] > .image-container {
 .form-message.error { color: #a20b0b; }
 .form-message.success { color: #176b00; }
 
-@media (max-width: 700px) {
-  .location-grid { grid-template-columns: 1fr; }
-  .location-card { min-height: 80px; }
-  .status-overview { grid-template-columns: 1fr; }
-  .status-photo { height: auto; }
-  .status-copy { padding: 24px 18px; }
-  .status-back {
-    width: min(100%, 260px);
-    box-sizing: border-box;
-  }
-}
 .status-chooser { max-width: 720px; }
 .location-grid {
   display: grid;
@@ -218,3 +207,18 @@ body[data-booth-id] > .image-container {
   transform: translateY(-3px);
 }
 .location-card:hover small { color: #fff; }
+
+@media (max-width: 700px) {
+  .location-grid { grid-template-columns: 1fr; }
+  .location-card {
+    min-height: 80px;
+    box-sizing: border-box;
+  }
+  .status-overview { grid-template-columns: 1fr; }
+  .status-photo { height: auto; }
+  .status-copy { padding: 24px 18px; }
+  .status-back {
+    width: min(100%, 260px);
+    box-sizing: border-box;
+  }
+}
