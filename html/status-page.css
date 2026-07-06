@@ -208,8 +208,80 @@ body[data-booth-id] > .image-container {
 }
 .location-card:hover small { color: #fff; }
 
+.location-card-featured {
+  grid-column: 2;
+  color: #fff;
+  background: #244c36;
+  border-color: #244c36;
+}
+.location-card-featured small { color: rgba(255,255,255,.78); }
+
+.all-status-page { max-width: 1050px; }
+.all-status-page .page-intro { margin-bottom: 30px; }
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.overview-card {
+  display: flex;
+  min-width: 0;
+  min-height: 250px;
+  flex-direction: column;
+  padding: 26px;
+  color: inherit;
+  text-decoration: none;
+  background: var(--white, #fff);
+  border-top: 7px solid #999;
+  box-shadow: 0 12px 35px rgba(33,54,42,.12);
+  transition: transform .2s, box-shadow .2s;
+}
+.overview-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 17px 40px rgba(33,54,42,.18);
+}
+.overview-card[data-status="open"] { border-top-color: #28a745; }
+.overview-card[data-status="closed"] { border-top-color: #dc3545; }
+.overview-card h3 { margin: 0 0 16px; }
+.overview-status {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 9px;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+.overview-status-dot {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #999;
+}
+.overview-card[data-status="open"] .overview-status-dot { background: #28a745; }
+.overview-card[data-status="closed"] .overview-status-dot { background: #dc3545; }
+.overview-message {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  font-size: .95rem;
+  background: #fff4cf;
+  border-left: 4px solid #a20b0b;
+}
+.overview-updated {
+  margin: auto 0 0;
+  color: #667069;
+  font-size: .8rem;
+  line-height: 1.4;
+}
+.overview-hint { margin-top: 24px; color: #667069; font-size: .9rem; }
+
+@media (max-width: 850px) {
+  .overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 @media (max-width: 700px) {
   .location-grid { grid-template-columns: 1fr; }
+  .location-card-featured { grid-column: auto; }
   .location-card {
     min-height: 80px;
     box-sizing: border-box;
@@ -221,4 +293,6 @@ body[data-booth-id] > .image-container {
     width: min(100%, 260px);
     box-sizing: border-box;
   }
+  .overview-grid { grid-template-columns: 1fr; }
+  .overview-card { min-height: 215px; padding: 22px; }
 }
