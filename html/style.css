@@ -204,9 +204,37 @@ p, li { line-height: 1.65; }
 .contact-card h3 { margin: 0 0 20px; color: var(--berry); }
 .contact-card p { margin: 0; }
 .contact-card a { color: var(--leaf); font-weight: 700; }
-.story-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(30px, 6vw, 80px); align-items: start; }
-.story-highlight { padding: clamp(28px, 4vw, 50px); color: var(--white); background: var(--leaf); }
-.story-highlight h3 { margin-top: 0; color: #fff; }
+.story-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: clamp(38px, 5vw, 68px); align-items: start; }
+.story-highlight {
+  position: relative;
+  min-height: 390px;
+  padding: clamp(38px, 4.4vw, 58px);
+  overflow: hidden;
+  color: var(--white);
+  background: linear-gradient(145deg, #2d5a42 0%, var(--leaf) 72%);
+  box-shadow: 14px 14px 0 var(--leaf-light);
+}
+.story-highlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 92px;
+  height: 7px;
+  background: var(--berry);
+}
+.story-kicker {
+  display: block;
+  margin-bottom: 18px;
+  color: #f3c3c9;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+.story-highlight h3 { margin: 0 0 24px; color: #fff; font-size: clamp(2rem, 3.2vw, 3rem); }
+.story-highlight p { max-width: 42ch; margin: 0; color: rgba(255, 253, 248, .88); }
+.story-highlight p + p { margin-top: 22px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .2); }
 .fb-page-wrap { min-width: 0; text-align: left; }
 
 /* Forms */
@@ -249,6 +277,9 @@ p, li { line-height: 1.65; }
   .home-story img { min-height: 320px; order: 2; }
   .home-story-copy { padding: 48px 23px; }
   .season-list, .contact-grid, .story-grid { grid-template-columns: 1fr; }
+  .story-grid { gap: 42px; }
+  .story-highlight { min-height: 0; padding: 36px 28px 38px; box-shadow: 8px 8px 0 var(--leaf-light); }
+  .story-highlight h3 { font-size: clamp(2rem, 10vw, 2.7rem); }
   .product-card { grid-template-rows: 330px 275px 80px; }
   .product-image-frame { height: 330px; }
   .product-details { height: 275px; padding: 34px 20px; }
