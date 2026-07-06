@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
-<body>
+<body class="home-page">
     <header>
         <h1>Jelsa Jordbær</h1>
         <p>"Dei får bein å gå på"</p>
@@ -22,16 +22,30 @@
             <li><a href="html/status.html">Status</a></li>
         </ul>
     </nav>
-    <main class="image-container">
-        <div class="page-intro">
-            <span class="eyebrow">Ferskt frå Jelsa</span>
-            <h2>Velkommen til Jelsa Jordbær</h2>
-            <p>Ei familiebedrift med over 25 års erfaring og eitt enkelt mål: ferske, nyplukka bær med skikkeleg god smak.</p>
-        </div>
-        <section class="content-card">
-            <img class="feature-image" src="media/fremstilling.png" alt="Eit utval av ferske bær og produkt frå Jelsa Jordbær">
-            <div class="content-card-body">
-                <h2>Smaken av sommaren</h2>
+    <main>
+        <section class="home-hero">
+            <div class="hero-copy">
+                <span class="eyebrow">Ferskt frå Ryfylke</span>
+                <h2>Smaken av sommar.</h2>
+                <p>Ei familiebedrift med over 25 års erfaring og eitt enkelt mål: nyplukka bær med skikkeleg god smak.</p>
+                <div class="hero-actions">
+                    <a class="text-button" href="html/status.html">Sjå dagens utsal →</a>
+                    <a class="text-button secondary" href="html/produkt.html">Utforsk bæra våre</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-links" aria-label="Praktisk informasjon">
+            <a class="quick-link" href="html/status.html"><span>Dagens oversikt</span><h3>Kvar er me opne?</h3><p>Sjå oppdatert status for Haugesund, Åkra og Sand. →</p></a>
+            <a class="quick-link" href="html/produkt.html"><span>I sesong</span><h3>Dette dyrkar me</h3><p>Jordbær, bringebær og moreller frå Ryfylke. →</p></a>
+            <a class="quick-link" href="html/kontakt.html"><span>Snakk med oss</span><h3>Kontakt garden</h3><p>Spør om bær, sesong eller utsalsstader. →</p></a>
+        </section>
+
+        <section class="home-story">
+            <img src="media/fremstilling.png" alt="Eit utval av ferske bær og produkt frå Jelsa Jordbær">
+            <div class="home-story-copy">
+                <span class="eyebrow">Frå generasjon til generasjon</span>
+                <h2>Dyrka med omtanke.</h2>
                 <p>I 2024 gjekk eigarskapet vidare frå far til son. Kunnskapen og kvaliteten er den same, medan neste generasjon fører drifta vidare.</p>
                 <ul class="season-list">
                     <li><strong>Korona</strong>ca. 5. juni–20. juli</li>
