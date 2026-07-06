@@ -1,0 +1,19 @@
+{
+  "id": "./html/selger.html",
+  "name": "Jelsa Jordbær – Selgerpanel",
+  "short_name": "Selgerpanel",
+  "description": "Selgerpanel for Jelsa Jordbær",
+  "start_url": "./html/selger.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3efe5",
+  "theme_color": "#244c36",
+  "icons": [
+    {
+      "src": "favicon2.png",
+      "sizes": "98x98",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
