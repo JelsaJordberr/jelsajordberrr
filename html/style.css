@@ -22,6 +22,21 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body.seller-app {
+  min-height: 100svh;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+body.seller-app input,
+body.seller-app select,
+body.seller-app textarea,
+body.seller-app button {
+  font-size: 16px;
+  touch-action: manipulation;
+}
+
 a { color: inherit; }
 img { max-width: 100%; }
 h1, h2, h3, p { overflow-wrap: break-word; }
