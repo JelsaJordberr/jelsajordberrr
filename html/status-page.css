@@ -296,3 +296,142 @@ body[data-booth-id] > .image-container {
   .overview-grid { grid-template-columns: 1fr; }
   .overview-card { min-height: 215px; padding: 22px; }
 }
+
+@media (max-width: 520px) {
+  body.seller-app {
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  body.seller-app header {
+    min-height: 58px;
+    padding: max(10px, env(safe-area-inset-top)) 16px 9px;
+  }
+
+  body.seller-app header h1 {
+    font-size: 1.18rem;
+    line-height: 1;
+  }
+
+  body.seller-app header h1::before {
+    margin-right: 0.35em;
+  }
+
+  body.seller-app .seller-shell {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100dvh - 58px);
+    margin: 0;
+    padding: 8px 10px max(10px, env(safe-area-inset-bottom));
+    overflow: hidden;
+  }
+
+  body.seller-app .page-intro {
+    flex: 0 0 auto;
+    margin: 0 0 6px;
+  }
+
+  body.seller-app .page-intro .eyebrow,
+  body.seller-app .page-intro p,
+  body.seller-app .seller-notice {
+    display: none;
+  }
+
+  body.seller-app .page-intro h2 {
+    margin: 0;
+    font-size: 1.42rem;
+    line-height: 1;
+  }
+
+  body.seller-app #seller-panel {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    flex-direction: column;
+    margin: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  body.seller-app .seller-panel-card {
+    padding: 12px;
+    overflow: hidden;
+  }
+
+  body.seller-app #login-form,
+  body.seller-app #update-form {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  body.seller-app .seller-panel-card h3,
+  body.seller-app #update-form p {
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+
+  body.seller-app #seller-panel label {
+    margin-top: 7px;
+    font-size: 0.78rem;
+    line-height: 1.15;
+  }
+
+  body.seller-app .booth-picker {
+    margin-bottom: 6px;
+  }
+
+  body.seller-app #seller-panel input,
+  body.seller-app #seller-panel textarea,
+  body.seller-app #seller-panel select {
+    max-width: none;
+    min-height: 38px;
+    padding: 7px 9px;
+    line-height: 1.2;
+  }
+
+  body.seller-app #seller-panel textarea {
+    min-height: 54px;
+    max-height: 54px;
+    resize: none;
+  }
+
+  body.seller-app .form-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 9px;
+  }
+
+  body.seller-app #login-form .form-actions {
+    grid-template-columns: 1fr;
+  }
+
+  body.seller-app .button,
+  body.seller-app .image-container button {
+    width: 100%;
+    min-width: 0;
+    min-height: 38px;
+    padding: 7px 8px;
+    font-size: 0.82rem;
+    line-height: 1.1;
+  }
+
+  body.seller-app .form-message {
+    flex: 0 0 auto;
+    min-height: 18px;
+    margin: 7px 0 0;
+    font-size: 0.78rem;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 360px) {
+  body.seller-app .form-actions {
+    grid-template-columns: 1fr;
+  }
+}
