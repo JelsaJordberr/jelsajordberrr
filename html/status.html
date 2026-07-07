@@ -11,20 +11,21 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Jelsa Jordbær" />
   <meta name="theme-color" content="#244c36" />
-  <link rel="stylesheet" href="style.css?v=10" />
-  <link rel="stylesheet" href="status-page.css?v=13" />
+  <link rel="stylesheet" href="style.css?v=14" />
+  <link rel="stylesheet" href="status-page.css?v=14" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
 
 </head>
 <body data-app-title="Status">
-  <header>
+    <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+    <header>
     <h1>Jelsa Jordbær</h1>
     <p>"Dei får bein å gå på"</p>
   </header>
 
-  <nav>
+  <nav id="site-navigation" aria-label="Hovedmeny">
     <ul>
       <li><a href="../index.html">Hjem</a></li>
       <li><a href="omoss.html">Om oss</a></li>
@@ -34,7 +35,7 @@
     </ul>
   </nav>
 
-  <main class="image-container status-chooser">
+  <main id="main-content" class="image-container status-chooser">
     <div class="page-intro">
       <span class="eyebrow">Dagens oversikt</span>
       <h2>Vel utsalsstad</h2>
@@ -55,5 +56,6 @@
       </a>
     </div>
   </main>
+  <script src="../js/mobile-site.js"></script>
 </body>
 </html>

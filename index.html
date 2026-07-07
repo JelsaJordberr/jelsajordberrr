@@ -10,16 +10,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Jelsa Jordbær">
     <meta name="theme-color" content="#244c36">
-    <link rel="stylesheet" href="html/style.css?v=10">
+    <link rel="stylesheet" href="html/style.css?v=14">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body class="home-page" data-app-title="Hjem">
+    <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
     <header>
         <h1>Jelsa Jordbær</h1>
         <p>"Dei får bein å gå på"</p>
     </header>
-    <nav>
+    <nav id="site-navigation" aria-label="Hovedmeny">
         <ul>
             <li><a href="index.html" aria-current="page">Hjem</a></li>
             <li><a href="html/omoss.html">Om oss</a></li>
@@ -28,7 +29,7 @@
             <li><a href="html/status.html">Status</a></li>
         </ul>
     </nav>
-    <main>
+    <main id="main-content">
         <section class="home-hero">
             <div class="hero-copy">
                 <span class="eyebrow">Ferskt frå Ryfylke</span>
@@ -45,6 +46,14 @@
             <a class="quick-link" href="html/status.html"><span>Dagens oversikt</span><h3>Kvar er me opne?</h3><p>Sjå oppdatert status for Haugesund, Åkra og Sand. →</p></a>
             <a class="quick-link" href="html/produkt.html"><span>I sesong</span><h3>Dette dyrkar me</h3><p>Jordbær, bringebær og moreller frå Ryfylke. →</p></a>
             <a class="quick-link" href="html/kontakt.html"><span>Snakk med oss</span><h3>Kontakt garden</h3><p>Spør om bær, sesong eller utsalsstader. →</p></a>
+        </section>
+
+        <section aria-label="Kva du kan forvente">
+            <ul class="home-proof">
+                <li class="home-proof-item"><strong>Plukka nært sal</strong><span>Bæra blir handtert varsamt og kjem raskt ut til kundane.</span></li>
+                <li class="home-proof-item"><strong>Oppdatert status</strong><span>Sjå om utsalsstaden er open før du køyrer.</span></li>
+                <li class="home-proof-item"><strong>Dyrka under tak</strong><span>Betre vern mot vêr gir jamnare kvalitet gjennom sesongen.</span></li>
+            </ul>
         </section>
 
         <section class="home-story">
@@ -64,6 +73,6 @@
             </div>
         </section>
     </main>
-    
+    <script src="js/mobile-site.js"></script>
 </body>
 </html>

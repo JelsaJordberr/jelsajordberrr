@@ -12,14 +12,15 @@
     <meta name="theme-color" content="#244c36">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css?v=10">
+    <link rel="stylesheet" href="style.css?v=14">
 </head>
 <body data-app-title="Om oss">
+    <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
     <header>
         <h1>Jelsa Jordbær</h1>
         <p>"Dei får bein å gå på"</p>
     </header>
-    <nav>
+    <nav id="site-navigation" aria-label="Hovedmeny">
         <ul>
             <li><a href="../index.html">Hjem</a></li>
             <li><a href="omoss.html" aria-current="page">Om oss</a></li>
@@ -28,7 +29,7 @@
             <li><a href="status.html">Status</a></li>
         </ul>
     </nav>
-        <main class="image-container">
+        <main id="main-content" class="image-container">
             <div class="page-intro">
                 <span class="eyebrow">Om garden</span>
                 <h2>Bær dyrka med omtanke</h2>
@@ -48,5 +49,6 @@
                 </div>
             </section>
         </main>
+  <script src="../js/mobile-site.js"></script>
 </body>
 </html>

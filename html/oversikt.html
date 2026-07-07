@@ -11,13 +11,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Jelsa Jordbær">
   <meta name="theme-color" content="#244c36">
-  <link rel="stylesheet" href="style.css?v=10">
-  <link rel="stylesheet" href="status-page.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="status-page.css?v=14">
 </head>
 <body data-app-title="Oversikt">
+  <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
   <header><h1>Jelsa Jordbær</h1><p>"Dei får bein å gå på"</p></header>
-  <nav><ul><li><a href="../index.html">Hjem</a></li><li><a href="omoss.html">Om oss</a></li><li><a href="produkt.html">Produkter</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="status.html" aria-current="page">Status</a></li></ul></nav>
-  <main class="image-container all-status-page">
+  <nav id="site-navigation" aria-label="Hovedmeny"><ul><li><a href="../index.html">Hjem</a></li><li><a href="omoss.html">Om oss</a></li><li><a href="produkt.html">Produkter</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="status.html" aria-current="page">Status</a></li></ul></nav>
+  <main id="main-content" class="image-container all-status-page">
     <div class="page-intro">
       <span class="eyebrow">Dagens oversikt</span>
       <h2>Alle utsalsstader</h2>
@@ -39,5 +40,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../js/supabase-status.js"></script>
   <script src="../js/overview-page.js"></script>
+  <script src="../js/mobile-site.js"></script>
 </body>
 </html>

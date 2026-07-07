@@ -11,14 +11,15 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Jelsa Jordbær">
   <meta name="theme-color" content="#244c36">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=14">
 </head>
 <body data-app-title="Produkter">
-  <header>
+    <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+    <header>
       <h1>Jelsa Jordbær</h1>
       <p>"Dei får bein å gå på"</p>
   </header>
-  <nav>
+  <nav id="site-navigation" aria-label="Hovedmeny">
       <ul>
         <li><a href="../index.html">Hjem</a></li>
         <li><a href="omoss.html">Om oss</a></li>
@@ -27,7 +28,7 @@
         <li><a href="status.html">Status</a></li>
       </ul>
   </nav>
-  <main class="image-container">
+  <main id="main-content" class="image-container">
     <div class="product-intro">
       <span class="product-kicker">Frå Ryfylke</span>
       <h2>Produktene våre</h2>
@@ -140,5 +141,6 @@
 
     updateImage();
   </script>
+  <script src="../js/mobile-site.js"></script>
 </body>
 </html>
