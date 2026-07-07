@@ -332,9 +332,9 @@ p, li { line-height: 1.65; }
     position: fixed;
     inset: 0 0 auto;
     z-index: 90;
-    min-height: 58px;
-    height: 58px;
-    padding: max(8px, env(safe-area-inset-top)) 18px 8px;
+    min-height: 52px;
+    height: 52px;
+    padding: max(7px, env(safe-area-inset-top)) 18px 7px;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -351,12 +351,12 @@ p, li { line-height: 1.65; }
   body:not(.seller-app)::before {
     content: attr(data-app-title);
     position: fixed;
-    top: calc(max(8px, env(safe-area-inset-top)) + 10px);
+    top: calc(max(7px, env(safe-area-inset-top)) + 9px);
     left: 18px;
     right: 18px;
     z-index: 95;
     color: #fff;
-    font-size: 1.16rem;
+    font-size: 1.05rem;
     font-weight: 500;
     line-height: 1.1;
     letter-spacing: 0;
@@ -370,9 +370,9 @@ p, li { line-height: 1.65; }
     top: auto;
     left: 0;
     right: 0;
-    bottom: max(12px, env(safe-area-inset-bottom));
+    bottom: max(10px, env(safe-area-inset-bottom));
     z-index: 100;
-    height: 70px;
+    height: 64px;
     padding-bottom: 0;
     overflow: hidden;
     background: var(--app-teal);
@@ -383,7 +383,7 @@ p, li { line-height: 1.65; }
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     width: 100%;
-    height: 70px;
+    height: 64px;
     min-width: 0;
     justify-content: stretch;
   }
@@ -391,14 +391,14 @@ p, li { line-height: 1.65; }
   body:not(.seller-app) nav a {
     display: flex;
     width: 100%;
-    height: 70px;
+    height: 64px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 4px;
-    padding: 7px 2px 8px;
+    gap: 3px;
+    padding: 6px 2px 7px;
     color: #fff;
-    font-size: clamp(.66rem, 3vw, .82rem);
+    font-size: clamp(.62rem, 2.8vw, .78rem);
     font-weight: 500;
     line-height: 1.05;
     letter-spacing: 0;
@@ -409,8 +409,8 @@ p, li { line-height: 1.65; }
   body:not(.seller-app) nav a::before {
     content: "";
     display: block;
-    width: 28px;
-    height: 28px;
+    width: 25px;
+    height: 25px;
     background: currentColor;
     -webkit-mask: var(--mobile-nav-icon) center / contain no-repeat;
     mask: var(--mobile-nav-icon) center / contain no-repeat;
@@ -446,14 +446,14 @@ p, li { line-height: 1.65; }
   body:not(.seller-app) .chat-container,
   body:not(.seller-app) .image-container {
     position: fixed;
-    top: 58px;
+    top: 52px;
     right: 0;
-    bottom: calc(70px + max(12px, env(safe-area-inset-bottom)));
+    bottom: calc(64px + max(10px, env(safe-area-inset-bottom)));
     left: 0;
     width: 100%;
     max-width: none;
     margin: 0;
-    padding: 16px;
+    padding: 12px;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -466,29 +466,216 @@ p, li { line-height: 1.65; }
   }
 
   .home-hero {
-    min-height: calc(100dvh - 58px - 70px - max(12px, env(safe-area-inset-bottom)));
-    padding: 86px 22px 34px;
+    min-height: calc(100dvh - 52px - 64px - max(10px, env(safe-area-inset-bottom)));
+    padding: 64px 18px 24px;
   }
 
   body:not(.seller-app) .page-intro,
   body:not(.seller-app) .product-intro {
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
 
   body:not(.seller-app) .eyebrow,
   body:not(.seller-app) .product-kicker {
     margin-bottom: 8px;
-    font-size: .65rem;
+    font-size: .62rem;
+    letter-spacing: .14em;
   }
 
   body:not(.seller-app) h2 {
-    margin-bottom: 10px;
-    font-size: clamp(2rem, 10vw, 3rem);
+    margin-bottom: 8px;
+    font-size: clamp(1.75rem, 8.8vw, 2.65rem);
   }
 
   body:not(.seller-app) .page-intro p,
   body:not(.seller-app) .product-intro p {
     font-size: .98rem;
+    line-height: 1.38;
+  }
+
+  body:not(.seller-app) h3 {
+    font-size: clamp(1.18rem, 6vw, 1.65rem);
+  }
+
+  body:not(.seller-app) p,
+  body:not(.seller-app) li {
+    line-height: 1.48;
+  }
+
+  body:not(.seller-app) .content-card,
+  body:not(.seller-app) .product-card {
+    box-shadow: 0 8px 24px rgba(33, 54, 42, .11);
+  }
+
+  body:not(.seller-app) .content-card-body {
+    padding: 18px;
+  }
+
+  body:not(.seller-app) .contact-grid {
+    gap: 8px;
+  }
+
+  body:not(.seller-app) .contact-card {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  body:not(.seller-app) .contact-card h3 {
+    margin-bottom: 8px;
+  }
+
+  body:not(.seller-app) .story-grid {
+    gap: 14px;
+  }
+
+  body:not(.seller-app) .story-highlight {
+    padding: 18px;
+    box-shadow: none;
+  }
+
+  body:not(.seller-app) .story-highlight h3 {
+    margin-bottom: 12px;
+  }
+
+  body:not(.seller-app) .story-highlight p + p {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  body:not(.seller-app) .fb-page-wrap h3 {
+    margin: 0 0 10px;
+  }
+
+  body:not(.seller-app) .hero-copy h2 {
+    margin-bottom: 14px;
+    font-size: clamp(2.55rem, 15vw, 4.4rem);
+  }
+
+  body:not(.seller-app) .hero-copy p {
+    margin-bottom: 18px;
+    font-size: .98rem;
+    line-height: 1.42;
+  }
+
+  body:not(.seller-app) .hero-actions {
+    gap: 8px;
+  }
+
+  body:not(.seller-app) .text-button,
+  body:not(.seller-app) .button {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: .92rem;
+  }
+
+  body:not(.seller-app) .quick-link {
+    min-height: 0;
+    padding: 18px 16px;
+  }
+
+  body:not(.seller-app) .quick-link h3 {
+    margin: 8px 0 6px;
+  }
+
+  body:not(.seller-app) .home-story img {
+    min-height: 210px;
+    max-height: 260px;
+  }
+
+  body:not(.seller-app) .home-story-copy {
+    padding: 22px 16px;
+  }
+
+  body:not(.seller-app) .season-list {
+    margin-top: 16px;
+  }
+
+  body:not(.seller-app) .season-list li {
+    padding: 10px 8px 10px 0;
+  }
+
+  body:not(.seller-app) .product-card {
+    grid-template-rows: clamp(200px, 35dvh, 300px) auto;
+    overflow: hidden;
+  }
+
+  body:not(.seller-app) .product-image-frame {
+    height: auto;
+    min-height: 0;
+    touch-action: pan-y;
+  }
+
+  body:not(.seller-app) .product-details {
+    height: auto;
+    min-height: 122px;
+    padding: 18px 16px;
+  }
+
+  body:not(.seller-app) .product-details h3 {
+    margin-bottom: 10px;
+  }
+
+  body:not(.seller-app) #description {
+    font-size: .98rem;
     line-height: 1.45;
+  }
+
+  body:not(.seller-app) .product-controls {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: clamp(200px, 35dvh, 300px);
+    padding: 0 10px;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  body:not(.seller-app) .product-controls button {
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    min-height: 50px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(8, 113, 128, .92);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .22);
+    font-size: 0;
+    pointer-events: auto;
+  }
+
+  body:not(.seller-app) .product-controls button span {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  body:not(.seller-app) #prev-btn {
+    color: #fff;
+    background: rgba(8, 113, 128, .92);
+  }
+
+  body:not(.seller-app) .product-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    padding: 7px 9px;
+    border-radius: 999px;
+    background: rgba(12, 28, 18, .55);
+    transform: translateX(-50%);
+  }
+
+  body:not(.seller-app) .product-dots span {
+    width: 9px;
+    height: 9px;
+    background: rgba(255, 255, 255, .56);
+  }
+
+  body:not(.seller-app) .product-dots .active {
+    background: #fff;
   }
 }
