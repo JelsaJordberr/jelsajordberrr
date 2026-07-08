@@ -13,13 +13,42 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Prepare website files
+        run: |
+          mkdir deploy
+          cp -R index.html favicon2.png selger.webmanifest site.webmanifest .nojekyll html js media deploy/
+
       - name: Upload via SFTP
-        uses: wangyucode/sftp-upload-action@v3
-        with:
-          host: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
-          port: ${{ secrets.SFTP_PORT }}
-          localDir: "."
-          remoteDir: ${{ secrets.REMOTE_PATH }}
-          exclude: ".git/*,.github/*,.DS_Store,**/.DS_Store"
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+          SFTP_KNOWN_HOSTS: ${{ secrets.SFTP_KNOWN_HOSTS }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SFTP_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+          sshpass -p "$SFTP_PASSWORD" sftp \
+            -o StrictHostKeyChecking=yes \
+            -P "$SFTP_PORT" \
+            "$SFTP_USERNAME@$SFTP_HOST" <<EOF
+          cd $REMOTE_PATH
+          lcd deploy
+          -mkdir html
+          -mkdir js
+          -mkdir media
+          put index.html
+          put favicon2.png
+          put selger.webmanifest
+          put site.webmanifest
+          put .nojekyll
+          put -r html
+          put -r js
+          put -r media
+          bye
+          EOF
