@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -21,3 +22,4 @@ jobs:
           port: ${{ secrets.SFTP_PORT }}
           localDir: "."
           remoteDir: ${{ secrets.REMOTE_PATH }}
+          exclude: ".git/*,.github/*,.DS_Store,**/.DS_Store"
