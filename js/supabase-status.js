@@ -1,5 +1,5 @@
-const SUPABASE_URL = "https://bfetmiogjtklzhhmbnnq.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_sm0CDt0xsnrIKImQ3oFIIA_HNiBBj3_";
+const SUPABASE_URL = "https://zxkwlbeafkkfepcziosb.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_JHk0vFKEnA5LeQUPesfWIA_euKNyn4U";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
@@ -24,8 +24,7 @@ async function updateBoothStatus(boothId, status, message, messageExpiresAt = nu
     .update({
       status,
       message: cleanMessage || null,
-      message_expires_at: cleanMessage ? messageExpiresAt : null,
-      updated_at: new Date().toISOString()
+      message_expires_at: cleanMessage ? messageExpiresAt : null
     })
     .eq("id", boothId)
     .select("id, name, status, message, message_expires_at, updated_at")

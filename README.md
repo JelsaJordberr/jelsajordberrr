@@ -2,82 +2,81 @@
 
 ## Supabase-oppsett for bodstatus
 
+Prosjektet bruker Supabase til å vise om bodene er åpne eller stengt, og til å la innloggede
+selgere oppdatere sin egen bod. Hele databaseoppsettet ligger i `supabase/setup.sql`.
+
+### 1. Opprett Supabase-prosjekt
+
+1. Gå til [Supabase](https://supabase.com/) og opprett et nytt prosjekt.
+2. Velg et sterkt databasepassord og riktig region.
+3. Vent til prosjektet er ferdig opprettet.
+
+### 2. Kjør databaseoppsettet
+
+1. Åpne **SQL Editor** i Supabase.
+2. Lim inn innholdet fra `supabase/setup.sql`.
+3. Trykk **Run**.
+
+Hvis databasen allerede er satt opp og du bare vil legge til Odda, kan du i stedet kjøre
+`supabase/add-odda.sql`.
+
+Dette lager:
+
+- `public.booths` med bodene `haugesund`, `akra`, `sand` og `odda`
+- `public.booth_sellers` for å koble selgere til bodene de får endre
+- Row Level Security slik at alle kan lese status, men bare tildelte selgere kan oppdatere
+- automatisk `updated_at` og `updated_by` når en bod oppdateres
+
+### 3. Legg inn Supabase-nøklene i nettsiden
+
 Frontend-konfigurasjonen ligger øverst i `js/supabase-status.js`. Lim inn prosjektets URL i
-`SUPABASE_URL` og den publiserbare (anon) nøkkelen i `SUPABASE_ANON_KEY`. En publiserbar nøkkel kan
-ligge i nettleserkode; legg aldri inn service-role-nøkkelen eller andre hemmeligheter her.
+`SUPABASE_URL` og den publiserbare nøkkelen i `SUPABASE_ANON_KEY`.
 
-### Database
+Du finner verdiene i Supabase under **Project Settings → API Keys** eller i prosjektets
+**Connect**-dialog. En publiserbar nøkkel kan ligge i nettleserkode; legg aldri inn
+`service_role`-nøkkelen eller andre hemmeligheter her.
 
-Nettsiden trenger tabellen `public.booths`:
+### 4. Opprett selgere
 
-```sql
-create table public.booths (
-  id text primary key,
-  name text not null,
-  status text not null default 'closed' check (status in ('open', 'closed')),
-  message text,
-  message_expires_at timestamptz,
-  updated_at timestamptz not null default now(),
-  updated_by uuid references auth.users(id)
-);
-
-insert into public.booths (id, name) values
-  ('haugesund', 'Haugesund'),
-  ('akra', 'Åkra'),
-  ('sand', 'Sand')
-on conflict (id) do nothing;
-```
-
-Hvis tabellen allerede finnes, legg til utløpskolonnen separat:
+1. Gå til **Authentication → Users**.
+2. Opprett én bruker per selger med e-post og passord.
+3. Gå tilbake til **SQL Editor** og gi brukeren tilgang til riktig bod:
 
 ```sql
-alter table public.booths
-add column if not exists message_expires_at timestamptz;
+insert into public.booth_sellers (booth_id, user_id)
+select 'haugesund', id
+from auth.users
+where email = 'selger@example.com'
+on conflict do nothing;
 ```
 
-Slå på Row Level Security. Offentlig lesing og oppdatering begrenset til brukerens tildelte boder
-kan settes opp slik:
+Bytt ut `haugesund` med `akra`, `sand` eller `odda` ved behov. Samme selger kan få flere boder ved
+å kjøre én linje per bod.
+
+For å gi en selger tilgang til Odda direkte:
 
 ```sql
-alter table public.booths enable row level security;
-
-create policy "Alle kan lese bodstatus"
-on public.booths for select
-using (true);
-
-create policy "Selgere kan oppdatere tildelte boder"
-on public.booths for update to authenticated
-using (
-  id in (
-    select jsonb_array_elements_text(
-      coalesce(auth.jwt() -> 'app_metadata' -> 'booth_ids', '[]'::jsonb)
-    )
-  )
-)
-with check (
-  id in (
-    select jsonb_array_elements_text(
-      coalesce(auth.jwt() -> 'app_metadata' -> 'booth_ids', '[]'::jsonb)
-    )
-  )
-);
+insert into public.booth_sellers (booth_id, user_id)
+select 'odda', id
+from auth.users
+where email = 'selger@example.com'
+on conflict do nothing;
 ```
 
-Opprett selgere under **Authentication → Users** i Supabase. Tildel boder i brukerens
-`app_metadata`, for eksempel `{"booth_ids":["haugesund"]}`. `app_metadata` må endres fra et
-betrodd administrasjonsmiljø, ikke av brukeren i frontend. Etter at en tildeling endres, må
-selgeren logge ut og inn igjen for å få et nytt token.
+### 5. Test
 
-### Sider og testing
+1. Åpne `html/status-haugesund.html`, `html/status-akra.html`, `html/status-sand.html` eller `html/status-odda.html`.
+2. Kontroller at status lastes uten innlogging.
+3. Åpne `html/selger.html`.
+4. Logg inn med en selgerbruker.
+5. Endre status eller melding og lagre.
+6. Test en bod selgeren ikke har tilgang til. Den skal avvises av sikkerhetsreglene.
+
+### Sider
 
 - `html/status-haugesund.html` bruker bod-ID `haugesund`.
 - `html/status-akra.html` bruker bod-ID `akra`.
 - `html/status-sand.html` bruker bod-ID `sand`.
-
-Start nettstedet via en lokal webserver eller den publiserte nettsiden. Åpne en statusside og
-kontroller at statusen lastes uten innlogging. Velg **For jordbærselgere**, logg inn med en bruker
-fra Supabase, endre status eller melding, velg eventuelt når meldingen skal utløpe, og lagre.
-Knappen **Slett melding** fjerner både meldingen og utløpsdatoen. Test også en bod brukeren ikke er tildelt; den
-skal avvises av RLS. En åpen statusside sjekker stille etter nye data hvert 20. sekund. Mens
-**For jordbærselgere**-panelet er åpent, reduseres dette til én sjekk hvert 3. minutt. Når panelet
-lukkes, brukes 20 sekunder igjen.
+- `html/status-odda.html` bruker bod-ID `odda`.
+- `html/oversikt.html` viser alle fire.
+- `html/selger.html` er innloggingssiden selgerne bruker for å oppdatere status.
