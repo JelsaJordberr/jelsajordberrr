@@ -332,8 +332,7 @@ p, li { line-height: 1.65; }
 #seller-panel textarea { min-height: 100px; resize: vertical; }
 .seller-notice { padding: 17px 20px; border-left: 5px solid var(--berry); background: #fff3d9; }
 .seller-panel-card { padding: clamp(28px, 5vw, 55px); }
-.mobile-menu-toggle,
-.install-app-prompt { display: none; }
+.mobile-menu-toggle { display: none; }
 .hidden { display: none !important; }
 
 @media (max-width: 900px) {
@@ -949,34 +948,7 @@ p, li { line-height: 1.65; }
     font-size: clamp(2.15rem, 11vw, 3.8rem);
   }
 
-  html.mobile-web-mode .install-app-prompt {
-    display: block;
-    margin: 0 0 18px;
-    padding: 14px 16px;
-    border: 1px solid rgba(8, 113, 128, .2);
-    border-radius: 8px;
-    background: #eef7f8;
-    color: var(--ink);
-  }
-
-  html.mobile-web-mode .install-app-prompt strong,
-  html.mobile-web-mode .install-app-prompt span {
-    display: block;
-  }
-
-  html.mobile-web-mode .install-app-prompt strong {
-    margin-bottom: 3px;
-    color: var(--app-teal-dark);
-    font-size: .95rem;
-  }
-
-  html.mobile-web-mode .install-app-prompt span {
-    font-size: .86rem;
-    line-height: 1.35;
-  }
-
-  html.mobile-app-mode .mobile-menu-toggle,
-  html.mobile-app-mode .install-app-prompt {
+  html.mobile-app-mode .mobile-menu-toggle {
     display: none;
   }
 }

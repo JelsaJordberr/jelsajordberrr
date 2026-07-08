@@ -42,15 +42,4 @@
     if (event.key === "Escape") setMenuOpen(false);
   });
 
-  if (isStandalone) return;
-
-  const installPrompt = document.createElement("aside");
-  installPrompt.className = "install-app-prompt";
-  installPrompt.innerHTML = [
-    "<strong>Vil du ha app-visning?</strong>",
-    "<span>Legg Jelsa Jordbær til på hjemskjermen for fast bunnmeny og app-oppsett.</span>"
-  ].join("");
-
-  const main = document.querySelector("main");
-  if (main) main.prepend(installPrompt);
 })();
