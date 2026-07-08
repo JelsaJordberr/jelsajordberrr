@@ -16,7 +16,7 @@ jobs:
       - name: Prepare website files
         run: |
           mkdir deploy
-          cp -R index.html favicon2.png selger.webmanifest site.webmanifest .nojekyll html js media deploy/
+          cp -R *.html favicon2.png selger.webmanifest site.webmanifest .nojekyll html js media deploy/
 
       - name: Upload via SFTP
         env:
@@ -43,7 +43,7 @@ jobs:
           -mkdir html
           -mkdir js
           -mkdir media
-          put index.html
+          put *.html
           put favicon2.png
           put selger.webmanifest
           put site.webmanifest
