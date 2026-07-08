@@ -38,6 +38,7 @@ jobs:
             -P "$SFTP_PORT" \
             "$SFTP_USERNAME@$SFTP_HOST" <<EOF
           cd $REMOTE_PATH
+          pwd
           lcd deploy
           -mkdir html
           -mkdir js
@@ -50,5 +51,6 @@ jobs:
           put -r html
           put -r js
           put -r media
+          ls -la
           bye
           EOF
