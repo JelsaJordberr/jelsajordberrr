@@ -88,8 +88,40 @@
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const productCard = document.querySelector('.product-card');
+    const productDetails = document.querySelector('.product-details');
     let touchStartX = 0;
     let touchStartY = 0;
+    let resizeTimer;
+
+    function matchDetailsHeightToLongestText() {
+      productDetails.style.minHeight = '';
+      if (!window.matchMedia('(max-width: 700px)').matches) return;
+
+      const measurement = productDetails.cloneNode(true);
+      const measuredName = measurement.querySelector('#product-name');
+      const measuredDescription = measurement.querySelector('#description');
+      const detailsWidth = productDetails.getBoundingClientRect().width;
+
+      measurement.removeAttribute('aria-live');
+      measurement.style.position = 'fixed';
+      measurement.style.left = '-10000px';
+      measurement.style.top = '0';
+      measurement.style.width = `${detailsWidth}px`;
+      measurement.style.height = 'auto';
+      measurement.style.minHeight = '0';
+      measurement.style.visibility = 'hidden';
+      document.body.appendChild(measurement);
+
+      let tallestHeight = 0;
+      products.forEach((product) => {
+        measuredName.textContent = product.name;
+        measuredDescription.textContent = product.description;
+        tallestHeight = Math.max(tallestHeight, measurement.scrollHeight);
+      });
+
+      measurement.remove();
+      productDetails.style.minHeight = `${Math.ceil(tallestHeight)}px`;
+    }
 
     function updateImage() {
       const product = products[currentIndex];
@@ -140,6 +172,12 @@
     }, { passive: true });
 
     updateImage();
+    matchDetailsHeightToLongestText();
+
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(matchDetailsHeightToLongestText, 120);
+    });
   </script>
   <script src="../js/mobile-site.js"></script>
 </body>
