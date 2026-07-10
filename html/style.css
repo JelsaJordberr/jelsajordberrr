@@ -1178,10 +1178,41 @@ p, li { line-height: 1.65; }
   html.mobile-app-mode body:not(.seller-app) .product-card,
   html.mobile-web-mode body:not(.seller-app) .product-card {
     grid-template-rows: clamp(200px, 35dvh, 300px) auto;
+    border-top: 0;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .product-image-frame,
+  html.mobile-web-mode body:not(.seller-app) .product-image-frame {
+    grid-row: 1;
+    height: clamp(200px, 35dvh, 300px);
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .product-image-frame img,
+  html.mobile-web-mode body:not(.seller-app) .product-image-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .product-count,
+  html.mobile-web-mode body:not(.seller-app) .product-count {
+    top: 12px;
+    right: 12px;
+    bottom: auto;
+    z-index: 2;
   }
 
   html.mobile-app-mode body:not(.seller-app) .product-details,
   html.mobile-web-mode body:not(.seller-app) .product-details {
+    position: static;
+    grid-row: 2;
+    z-index: 1;
+    height: auto;
+    min-height: 0;
+    padding: 15px 16px 17px;
     color: var(--ink);
     background: var(--white);
     border-top: 1px solid var(--line);
@@ -1189,7 +1220,15 @@ p, li { line-height: 1.65; }
 
   html.mobile-app-mode body:not(.seller-app) .product-details h3,
   html.mobile-web-mode body:not(.seller-app) .product-details h3 {
+    position: static;
+    min-height: 0;
+    margin: 0 0 7px;
+    padding: 0;
     color: var(--ink);
+    background: transparent;
+    font-size: clamp(1.35rem, 7vw, 1.85rem);
+    line-height: 1.1;
+    white-space: normal;
   }
 
   html.mobile-app-mode body:not(.seller-app) #description,
@@ -1205,5 +1244,10 @@ p, li { line-height: 1.65; }
     background: rgba(255, 253, 248, .94);
     border: 1px solid rgba(23, 36, 29, .18);
     box-shadow: 0 5px 16px rgba(0, 0, 0, .14);
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .product-controls,
+  html.mobile-web-mode body:not(.seller-app) .product-controls {
+    z-index: 4;
   }
 }
