@@ -952,3 +952,258 @@ p, li { line-height: 1.65; }
     display: none;
   }
 }
+
+/* Keep the mobile home page visually consistent with the rest of the site. */
+@media (max-width: 700px) {
+  html.mobile-app-mode .home-page main,
+  html.mobile-web-mode .home-page main {
+    padding: 14px;
+    background: #fbfaf6;
+  }
+
+  html.mobile-app-mode .home-hero,
+  html.mobile-web-mode .home-hero {
+    min-height: 0;
+    padding: 26px 20px;
+    align-items: flex-start;
+    color: var(--ink);
+    background: var(--white);
+    border: 0;
+    border-top: 7px solid #999;
+    box-shadow: 0 7px 20px rgba(33, 54, 42, .1);
+  }
+
+  html.mobile-app-mode .home-page .hero-copy,
+  html.mobile-web-mode .home-page .hero-copy {
+    max-width: none;
+  }
+
+  html.mobile-app-mode .home-page .eyebrow,
+  html.mobile-web-mode .home-page .eyebrow,
+  html.mobile-app-mode .home-page .quick-link span,
+  html.mobile-web-mode .home-page .quick-link span {
+    color: #667169;
+  }
+
+  html.mobile-app-mode .home-page .hero-copy h2,
+  html.mobile-web-mode .home-page .hero-copy h2 {
+    max-width: none;
+    margin-bottom: 12px;
+    font-size: clamp(2.25rem, 11vw, 3.25rem);
+    line-height: 1;
+  }
+
+  html.mobile-app-mode .home-page .hero-copy p,
+  html.mobile-web-mode .home-page .hero-copy p {
+    margin-bottom: 20px;
+    color: #526158;
+    text-shadow: none;
+  }
+
+  html.mobile-app-mode .home-page .hero-actions,
+  html.mobile-web-mode .home-page .hero-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  html.mobile-app-mode .home-page .text-button,
+  html.mobile-web-mode .home-page .text-button {
+    justify-content: space-between;
+    min-height: 46px;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    background: transparent;
+  }
+
+  html.mobile-app-mode .home-page .text-button.secondary,
+  html.mobile-web-mode .home-page .text-button.secondary {
+    border-color: var(--line);
+    color: var(--ink);
+    background: transparent;
+  }
+
+  html.mobile-app-mode .home-page .quick-links,
+  html.mobile-web-mode .home-page .quick-links {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+  }
+
+  html.mobile-app-mode .home-page .quick-link,
+  html.mobile-web-mode .home-page .quick-link {
+    padding: 20px;
+    border-right: 0;
+    border-top: 7px solid #999;
+    border-bottom: 0;
+    background: var(--white);
+    box-shadow: 0 7px 20px rgba(33, 54, 42, .1);
+  }
+
+  html.mobile-app-mode .home-page .quick-link:last-child,
+  html.mobile-web-mode .home-page .quick-link:last-child {
+    border-bottom: 0;
+  }
+
+  html.mobile-app-mode .home-page .quick-link p,
+  html.mobile-web-mode .home-page .quick-link p,
+  html.mobile-app-mode .home-page .home-proof-item span,
+  html.mobile-web-mode .home-page .home-proof-item span {
+    color: #526158;
+    opacity: 1;
+  }
+
+  html.mobile-app-mode .home-page .home-proof,
+  html.mobile-web-mode .home-page .home-proof {
+    gap: 0;
+    margin-top: 12px;
+    border: 0;
+    box-shadow: 0 7px 20px rgba(33, 54, 42, .1);
+  }
+
+  html.mobile-app-mode .home-page .home-story,
+  html.mobile-web-mode .home-page .home-story {
+    margin-top: 12px;
+    border: 0;
+    border-top: 7px solid #999;
+    background: var(--white);
+    box-shadow: 0 7px 20px rgba(33, 54, 42, .1);
+  }
+
+  html.mobile-app-mode .home-page .home-proof-item strong,
+  html.mobile-web-mode .home-page .home-proof-item strong,
+  html.mobile-app-mode .home-page .season-list strong,
+  html.mobile-web-mode .home-page .season-list strong {
+    color: var(--ink);
+  }
+
+  html.mobile-app-mode .home-page .home-story img,
+  html.mobile-web-mode .home-page .home-story img {
+    display: none;
+  }
+
+  html.mobile-app-mode .home-page .home-story-copy,
+  html.mobile-web-mode .home-page .home-story-copy {
+    padding: 24px 20px;
+  }
+}
+
+/* Shared clean card treatment for public mobile pages. */
+@media (max-width: 700px) {
+  html.mobile-app-mode body:not(.seller-app) main:not(.all-status-page),
+  html.mobile-web-mode body:not(.seller-app) main:not(.all-status-page) {
+    background: #fbfaf6;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .page-intro,
+  html.mobile-app-mode body:not(.seller-app) .product-intro,
+  html.mobile-web-mode body:not(.seller-app) .page-intro,
+  html.mobile-web-mode body:not(.seller-app) .product-intro {
+    padding: 18px 16px;
+    margin-bottom: 12px;
+    border-top: 7px solid #999;
+    background: var(--white);
+    box-shadow: 0 7px 20px rgba(33, 54, 42, .1);
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .page-intro p,
+  html.mobile-app-mode body:not(.seller-app) .product-intro p,
+  html.mobile-web-mode body:not(.seller-app) .page-intro p,
+  html.mobile-web-mode body:not(.seller-app) .product-intro p {
+    color: #526158;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .eyebrow,
+  html.mobile-app-mode body:not(.seller-app) .product-kicker,
+  html.mobile-app-mode body:not(.seller-app) .story-kicker,
+  html.mobile-web-mode body:not(.seller-app) .eyebrow,
+  html.mobile-web-mode body:not(.seller-app) .product-kicker,
+  html.mobile-web-mode body:not(.seller-app) .story-kicker {
+    color: #667169;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .content-card,
+  html.mobile-web-mode body:not(.seller-app) .content-card,
+  html.mobile-app-mode body:not(.seller-app) .contact-card,
+  html.mobile-web-mode body:not(.seller-app) .contact-card,
+  html.mobile-app-mode body:not(.seller-app) .product-card,
+  html.mobile-web-mode body:not(.seller-app) .product-card {
+    border: 0;
+    border-top: 7px solid #999;
+    background: var(--white);
+    box-shadow: 0 7px 20px rgba(33, 54, 42, .1);
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .story-highlight,
+  html.mobile-web-mode body:not(.seller-app) .story-highlight {
+    min-height: 0;
+    padding: 18px 0;
+    color: var(--ink);
+    background: transparent;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .story-highlight::before,
+  html.mobile-web-mode body:not(.seller-app) .story-highlight::before {
+    display: none;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .story-highlight h3,
+  html.mobile-web-mode body:not(.seller-app) .story-highlight h3,
+  html.mobile-app-mode body:not(.seller-app) .story-highlight p,
+  html.mobile-web-mode body:not(.seller-app) .story-highlight p {
+    color: var(--ink);
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .story-highlight p,
+  html.mobile-web-mode body:not(.seller-app) .story-highlight p {
+    color: #526158;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .contact-grid,
+  html.mobile-web-mode body:not(.seller-app) .contact-grid {
+    gap: 12px;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .contact-card h3,
+  html.mobile-web-mode body:not(.seller-app) .contact-card h3,
+  html.mobile-app-mode body:not(.seller-app) .contact-card a,
+  html.mobile-web-mode body:not(.seller-app) .contact-card a {
+    color: var(--ink);
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .product-card,
+  html.mobile-web-mode body:not(.seller-app) .product-card {
+    grid-template-rows: clamp(200px, 35dvh, 300px) auto;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .product-details,
+  html.mobile-web-mode body:not(.seller-app) .product-details {
+    color: var(--ink);
+    background: var(--white);
+    border-top: 1px solid var(--line);
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .product-details h3,
+  html.mobile-web-mode body:not(.seller-app) .product-details h3 {
+    color: var(--ink);
+  }
+
+  html.mobile-app-mode body:not(.seller-app) #description,
+  html.mobile-web-mode body:not(.seller-app) #description {
+    color: #526158;
+  }
+
+  html.mobile-app-mode body:not(.seller-app) .product-controls button,
+  html.mobile-web-mode body:not(.seller-app) .product-controls button,
+  html.mobile-app-mode body:not(.seller-app) #prev-btn,
+  html.mobile-web-mode body:not(.seller-app) #prev-btn {
+    color: var(--ink);
+    background: rgba(255, 253, 248, .94);
+    border: 1px solid rgba(23, 36, 29, .18);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .14);
+  }
+}

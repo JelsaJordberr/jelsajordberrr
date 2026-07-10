@@ -13,7 +13,7 @@
     message.textContent = visibleMessage || "";
     message.classList.toggle("hidden", !visibleMessage);
     card.querySelector(".overview-updated").textContent = booth.updated_at
-      ? `Sist oppdatert: ${new Date(booth.updated_at).toLocaleString("no-NO")}`
+      ? `Sist endra: ${new Date(booth.updated_at).toLocaleString("no-NO")}`
       : "";
   }
 

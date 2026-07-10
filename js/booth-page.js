@@ -20,7 +20,7 @@
     messageText.textContent = visibleMessage || "";
     messageText.classList.toggle("hidden", !visibleMessage);
     lastUpdated.textContent = booth.updated_at
-      ? `Sist oppdatert: ${new Date(booth.updated_at).toLocaleString("no-NO")}`
+      ? `Sist endra: ${new Date(booth.updated_at).toLocaleString("no-NO")}`
       : "";
   }
 

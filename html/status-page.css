@@ -280,6 +280,13 @@ body[data-booth-id] > .image-container {
 }
 
 @media (max-width: 700px) {
+  .all-status-page > .page-intro {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
   .location-grid {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -338,6 +345,48 @@ body[data-booth-id] > .image-container {
     margin-top: 14px;
     font-size: .82rem;
   }
+
+  body:not(.seller-app) .location-card {
+    border: 0;
+    border-top: 7px solid #999;
+    border-radius: 0;
+    color: var(--ink, #17241d);
+    background: var(--white, #fff);
+    box-shadow: 0 7px 20px rgba(33,54,42,.1);
+  }
+
+  body:not(.seller-app) .location-grid {
+    gap: 12px;
+  }
+
+  body:not(.seller-app) .location-card-featured,
+  body:not(.seller-app) .location-card:hover {
+    color: var(--ink, #17241d);
+    background: var(--white, #fff);
+    border-top-color: #999;
+    transform: none;
+  }
+
+  body:not(.seller-app) .location-card small,
+  body:not(.seller-app) .location-card-featured small,
+  body:not(.seller-app) .location-card:hover small {
+    color: #667069;
+  }
+
+  /* Individual booth pages keep their original compact mobile layout. */
+  html.mobile-app-mode body[data-booth-id] .status-copy .page-intro,
+  html.mobile-web-mode body[data-booth-id] .status-copy .page-intro {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  html.mobile-app-mode body[data-booth-id] .status-copy .eyebrow,
+  html.mobile-web-mode body[data-booth-id] .status-copy .eyebrow {
+    color: var(--berry, #b62538);
+  }
+
 }
 
 @media (max-width: 520px) {
