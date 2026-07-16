@@ -389,6 +389,45 @@ body[data-booth-id] > .image-container {
 
 }
 
+/* The overview installed from oversikt.html is a focused, status-only app. */
+@media (max-width: 700px) {
+  html.mobile-app-mode body.status-overview-page {
+    background: #fbfaf6;
+  }
+
+  html.mobile-app-mode body.status-overview-page::before,
+  html.mobile-app-mode body.status-overview-page > header,
+  html.mobile-app-mode body.status-overview-page > nav,
+  html.mobile-app-mode body.status-overview-page > .mobile-menu-toggle,
+  html.mobile-app-mode body.status-overview-page .all-status-page > .page-intro,
+  html.mobile-app-mode body.status-overview-page .overview-hint {
+    display: none;
+  }
+
+  html.mobile-app-mode body.status-overview-page .all-status-page {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: max(14px, env(safe-area-inset-top)) 14px max(14px, env(safe-area-inset-bottom));
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #fbfaf6;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  html.mobile-app-mode body.status-overview-page .overview-grid {
+    gap: 12px;
+  }
+
+  html.mobile-app-mode body.status-overview-page .overview-card {
+    padding: 18px 16px;
+    border-radius: 0;
+    box-shadow: 0 7px 20px rgba(33, 54, 42, .1);
+  }
+}
+
 @media (max-width: 520px) {
   body.seller-app {
     height: 100dvh;

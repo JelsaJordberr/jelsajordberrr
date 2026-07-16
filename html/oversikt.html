@@ -6,15 +6,15 @@
   <title>Oversikt over utsalsstader - Jelsa Jordbær</title>
   <link rel="icon" type="image/png" href="../favicon2.png">
   <link rel="apple-touch-icon" href="../favicon2.png">
-  <link rel="manifest" href="../site.webmanifest">
+  <link rel="manifest" href="../oversikt.webmanifest">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Jelsa Jordbær">
-  <meta name="theme-color" content="#244c36">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Jelsa status">
+  <meta name="theme-color" content="#fbfaf6">
   <link rel="stylesheet" href="style.css?v=20">
-  <link rel="stylesheet" href="status-page.css?v=16">
+  <link rel="stylesheet" href="status-page.css?v=17">
 </head>
-<body data-app-title="Oversikt">
+<body class="status-overview-page" data-app-title="Oversikt">
   <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
   <header><h1>Jelsa Jordbær</h1><p>"Dei får bein å gå på"</p></header>
   <nav id="site-navigation" aria-label="Hovedmeny"><ul><li><a href="../index.html">Hjem</a></li><li><a href="omoss.html">Om oss</a></li><li><a href="produkt.html">Produkter</a></li><li><a href="kontakt.html">Kontakt</a></li><li><a href="oversikt.html" aria-current="page">Status</a></li></ul></nav>
@@ -40,9 +40,9 @@
     </section>
     <p class="overview-hint">Trykk på ein utsalsstad for å sjå meir. Statusen blir oppdatert automatisk.</p>
   </main>
+  <script src="../js/mobile-site.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../js/supabase-status.js"></script>
   <script src="../js/overview-page.js?v=2"></script>
-  <script src="../js/mobile-site.js"></script>
 </body>
 </html>
