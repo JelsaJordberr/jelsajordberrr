@@ -2,7 +2,7 @@
   "name": "Jelsa Jordbær",
   "short_name": "Jelsa Jordbær",
   "description": "Status og informasjon frå Jelsa Jordbær",
-  "start_url": "./?app=1",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f3efe5",

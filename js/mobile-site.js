@@ -2,9 +2,11 @@
   const isStandalone = window.matchMedia("(display-mode: standalone)").matches
     || window.navigator.standalone
     || new URLSearchParams(window.location.search).get("app") === "1";
+  const isOverviewApp = /\/oversikt\.html$/.test(window.location.pathname);
+  const useAppLayout = isStandalone && isOverviewApp;
 
-  document.documentElement.classList.toggle("mobile-app-mode", Boolean(isStandalone));
-  document.documentElement.classList.toggle("mobile-web-mode", !isStandalone);
+  document.documentElement.classList.toggle("mobile-app-mode", useAppLayout);
+  document.documentElement.classList.toggle("mobile-web-mode", !useAppLayout);
 
   const nav = document.querySelector("nav");
   if (!nav || document.body.classList.contains("seller-app")) return;
@@ -24,7 +26,7 @@
     document.body.classList.toggle("mobile-menu-open", isOpen);
     menuButton.setAttribute("aria-expanded", String(isOpen));
     menuButton.setAttribute("aria-label", isOpen ? "Lukk meny" : "Åpne meny");
-    nav.toggleAttribute("inert", !isOpen && mobileQuery.matches && document.documentElement.classList.contains("mobile-web-mode"));
+    nav.toggleAttribute("inert", !isOpen && mobileQuery.matches && !useAppLayout);
   }
 
   setMenuOpen(false);
